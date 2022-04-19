@@ -1,6 +1,7 @@
 # 1semesterProjekt
 #hejsa, det er en test 
 //gå hjem
-test1
-test3
-test2
+//Hallo der
+
+hvis i kan læse det her så skriv 321
+321
