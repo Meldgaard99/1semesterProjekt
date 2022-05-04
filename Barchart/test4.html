@@ -52,6 +52,14 @@
     }
 
 
+    fetch('http://example.com/movies.json')
+  .then((response) => {
+    return response.json();
+  })
+  .then((myJson) => {
+    console.log(myJson);
+  });
+
     // Width og height
     const w = 700;
     const h = 550;
