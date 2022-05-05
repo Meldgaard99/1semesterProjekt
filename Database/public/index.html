@@ -207,8 +207,6 @@
       d3.select("#Agurk")
         // Koden herunder køres kun ved tryk på knappen
         .on("click", function () {
-          console.log(`Agurk clicked`)
-
 
           if (agurkBool == true) {
             d3.json("/api/frugt/agurk", {
@@ -217,19 +215,14 @@
               const data = response.data; // Hent data ud af response
               agurkId = fruitID;
               fruitID += 1;
-              console.log(`id: ${agurkId}`)
               dataset.push([agurkId, parseFloat(data[0].totalkgco2)]);
-              console.log(dataset);
               updateSelectionAdd()
               agurkBool = false;
-              console.log("Agurkbool = true")
             })
           } else {
             let index = findIndexInArray(dataset, agurkId)
-            console.log(`index : ${index}`)
             dataset.splice(index, 1);
             agurkBool = true;
-            console.log("Agurkbool = false")
             updateSelectionRemoval()
           }
 
@@ -239,7 +232,6 @@
       d3.select("#Tomat")
         // Koden herunder køres kun ved tryk på knappen
         .on("click", function () {
-          console.log(`Tomat clicked`)
 
           if (tomatBool == true) {
             d3.json("/api/frugt/agurk", {
@@ -248,19 +240,14 @@
               const data = response.data; // Hent data ud af response
               tomatId = fruitID;
               fruitID += 1;
-              console.log(`id: ${tomatId}`)
               dataset.push([tomatId, parseFloat(data[0].totalkgco2)]);
-              console.log(dataset);
               updateSelectionAdd()
               tomatBool = false;
-              console.log("tomatBool = true")
             })
           } else {
             let index = findIndexInArray(dataset, tomatId)
-            console.log(`index : ${index}`)
             dataset.splice(index, 1);
             tomatBool = true;
-            console.log("tomatBool = false")
             updateSelectionRemoval()
           }
 
@@ -270,7 +257,6 @@
       d3.select("#Apple")
         // Koden herunder køres kun ved tryk på knappen
         .on("click", function () {
-          console.log(`Apple clicked`)
 
           if (appleBool == true) {
             d3.json("/api/frugt/agurk", {
@@ -279,19 +265,14 @@
               const data = response.data; // Hent data ud af response
               appleId = fruitID;
               fruitID += 1;
-              console.log(`id: ${appleId}`)
               dataset.push([appleId, parseFloat(data[0].totalkgco2)]);
-              console.log(dataset);
               updateSelectionAdd()
               appleBool = false;
-              console.log("appleBool = true")
             })
           } else {
             let index = findIndexInArray(dataset, appleId)
-            console.log(`index : ${index}`)
             dataset.splice(index, 1);
             appleBool = true;
-            console.log("appleBool = false")
             updateSelectionRemoval()
           }
         });
@@ -325,47 +306,13 @@
 
       // Denne query kører op imod API'en som findes i 'main.js'.
       // Denne HTML skal derfor åbnes igennem serveren for at virke.
-      d3.json("/api/frugt/agurk", {
-        method: "POST",
-      }).then(function (response) {
-        const data = response.data; // Hent data ud af response
-        console.log("data:", data);
-
-        for (let q = 0; q < data.length; q++) {
-          console.log(data[q]);
-          console.log(`totalkgco2: ${data[q].totalkgco2}`);
-        }
 
 
+      for (let q = 0; q < data.length; q++) {
+        console.log(data[q]);
+        console.log(`totalkgco2: ${data[q].totalkgco2}`);
+      }
 
-
-        const w = 500;
-        const h = 350;
-
-        // Lav SVG element
-        const svg = d3.select("body")
-          .append("svg")
-          .attr("width", w)
-          .attr("height", h)
-          .attr("style", "border:1px solid black");
-
-        // Indsæt tekst fra postgres query som eksempel
-        console.log("Indsæt tekst fra postgres query som eksempel")
-        let textLabel = "";
-        svg.selectAll("text")
-          .data(data)
-          .enter()
-          .append("text")
-          .attr("x", 20)
-          .attr("y", 20)
-          .text(function (d) {
-            textLabel += `${d.navn} `
-            console.log(`${d.navn}`)
-          })
-          .text(`Svar fra database: ${textLabel}`)
-        console.log(`textLabel: ${textLabel}`)
-        // Lav din egen visualsering med data her!
-      });
 
 
       function generateBarchart() {
