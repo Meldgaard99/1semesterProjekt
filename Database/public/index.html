@@ -2,88 +2,99 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
   <script src="scripts/d3.js"></script>
   <title>Postgres node.js template med d3.js</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <h1>Postgres node.js template med d3.js</h1>
+  <section id="product1" class="section-p1" section>
+    <h2>Product </h2>
+    <p>tomat</p>
+    <div class=" pro-container" div>
+      <div class="pro">
+        <img src="grøntsag-uden-baggrund/Agurk.png" alt="Agurk">
+        <div class="desc">
+          <span>Agurk</span>
+        </div>
 
-  <button id="Agurk"><b>Agurk</b></button>
-  <button id="Tomat"><b>Tomat</b></button>
-  <button id="Apple"><b>Æble</b></button>
-  <svg width="100%" height="300" style="border:1px solid black" id="svg1">
-    <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+      </div>
 
-  </svg>
+    </div>
+    <button id="Agurk"><b>Agurk</b></button>
+    <button id="Tomat"><b>Tomat</b></button>
+    <button id="Apple"><b>Æble</b></button>
+    <svg width="100%" height="300" style="border:1px solid black" id="svg1">
+      <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
 
-
-  <script type="text/javascript">
-
-    const agurkBool = true;
-    const tomatBool = true;
-    const appleBool = true;
-
-
-    // Width og height
-    const w = 1000;
-    const h = 350;
-    const barPadding = 1; // Bruges til at lave afstand imellem søjler
-    const maxValue = 1;
-
-    // Selve datasættet
-    let dataset = [];
+    </svg>
 
 
+    <script type="text/javascript">
 
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
+      let agurkBool = true;
+      let tomatBool = true;
+      let appleBool = true;
 
-    // Scale-funktioner
-    const xScale = d3.scaleBand()
-      .domain(d3.range(dataset.length))
-      .rangeRound([0, w])
-      .paddingInner(0.05);
 
-    const yScale = d3.scaleLinear()
-      .domain([0, maxValue])
-      .range([0, h]);
+      // Width og height
+      const w = 1000;
+      const h = 350;
+      const barPadding = 1; // Bruges til at lave afstand imellem søjler
+      const maxValue = 1;
 
-    // Lav et SVG element
-    const svg = d3.select("body")
-      .append("svg")
-      .attr("width", w)
-      .attr("height", h);
+      // Selve datasættet
+      let dataset = [];
 
-    // Lav indledende barchart
-    svg.selectAll("rect")
-      .data(dataset, function (d) {
-        return d.key;
-      })
-      .enter()
-      .append("rect")
-      .attr("x", function (d, i) {
-        return xScale(i);
-      })
-      .attr("y", function (d) {
-        return h - yScale(d[1]);
-      })
-      .attr("width", xScale.bandwidth())
-      .attr("height", function (d) {
-        return yScale(d[1]);
-      })
-      .attr("fill", function (d) {
-        return d.color;
-      });
 
-    // Vælg elementet med id "klik_tilføj" og tilføj en handling		
-    function updateSelectionAdd() {
+
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+
+      // Scale-funktioner
+      const xScale = d3.scaleBand()
+        .domain(d3.range(dataset.length))
+        .rangeRound([0, w])
+        .paddingInner(0.05);
+
+      const yScale = d3.scaleLinear()
+        .domain([0, maxValue])
+        .range([0, h]);
+
+      // Lav et SVG element
+      const svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+      // Lav indledende barchart
+      svg.selectAll("rect")
+        .data(dataset, function (d) {
+          return d.key;
+        })
+        .enter()
+        .append("rect")
+        .attr("x", function (d, i) {
+          return xScale(i);
+        })
+        .attr("y", function (d) {
+          return h - yScale(d[1]);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function (d) {
+          return yScale(d[1]);
+        })
+        .attr("fill", function (d) {
+          return d.color;
+        });
+
+      // Vælg elementet med id "klik_tilføj" og tilføj en handling		
+      function updateSelectionAdd() {
         // Kode herunder kører kun når der trykkes på knappen
 
         // Opdater scale-funktioner
@@ -130,208 +141,256 @@
 
 
 
-    function updateSelectionRemoval() {
+      function updateSelectionRemoval() {
 
-      // Kode herunder kører kun når der trykkes på knappen
+        // Kode herunder kører kun når der trykkes på knappen
 
-      // Opdater scale-funktioner
-      xScale.domain(d3.range(dataset.length));
-      yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig igen
+        // Opdater scale-funktioner
+        xScale.domain(d3.range(dataset.length));
+        yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig igen
 
-      // select alle 'rects' og tilføj ny data
-      const updateSelection = svg.selectAll("rect")
-        .data(dataset, function (d) {
-          return d[0];
-        });
+        // select alle 'rects' og tilføj ny data
+        const updateSelection = svg.selectAll("rect")
+          .data(dataset, function (d) {
+            return d[0];
+          });
 
-      // Alle søjler animeres fint.
-      // De har alle fået nye værdier fordi der er fjernet et punkt
-      updateSelection.transition()
-        .duration(1500)
-        .attr("x", function (d, i) {
-          return xScale(i);
-        })
-        .attr("y", function (d) {
-          return h - yScale(d[1]);
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function (d) {
-          return yScale(d[1]);
-        });
+        // Alle søjler animeres fint.
+        // De har alle fået nye værdier fordi der er fjernet et punkt
+        updateSelection.transition()
+          .duration(1500)
+          .attr("x", function (d, i) {
+            return xScale(i);
+          })
+          .attr("y", function (d) {
+            return h - yScale(d[1]);
+          })
+          .attr("width", xScale.bandwidth())
+          .attr("height", function (d) {
+            return yScale(d[1]);
+          });
 
-      // 'exit' bruges til at animere den søjle der er fjernet, og kun den
-      updateSelection.exit()
-        .transition()
-        .delay(200)
-        .duration(2000)
-        .attr("fill", "#00000000") // Animere til usynlighed
-        .attr("x", w + 200) // Flytter søjlen ud til højre
-        .remove(); // 'rect' slettes
-
-
-    }
+        // 'exit' bruges til at animere den søjle der er fjernet, og kun den
+        updateSelection.exit()
+          .transition()
+          .delay(200)
+          .duration(2000)
+          .attr("fill", "#00000000") // Animere til usynlighed
+          .attr("x", w + 200) // Flytter søjlen ud til højre
+          .remove(); // 'rect' slettes
 
 
-
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
-
-
-    d3.select("#Agurk")
-      // Koden herunder køres kun ved tryk på knappen
-      .on("click", function () {
-        console.log(`Agurk clicked`)
-
-        d3.json("/api/frugt/agurk", {
-          method: "POST",
-        }).then(function (response) {
-          const data = response.data; // Hent data ud af response
-          dataset.push([dataset.length, parseFloat(data[0].totalkgco2)]);
-          console.log(dataset);
-          updateSelectionAdd()
-        })
-      });
-
-
-    d3.select("#Tomat")
-      // Koden herunder køres kun ved tryk på knappen
-      .on("click", function () {
-        console.log(`Tomat clicked`)
-
-        d3.json("/api/frugt/Tomat", {
-          method: "POST",
-        }).then(function (response) {
-          const data = response.data; // Hent data ud af response
-          dataset.push([dataset.length, parseFloat(data[0].totalkgco2)]);
-          console.log(dataset);
-          updateSelectionAdd()
-        })
-      });
-
-    d3.select("#Apple")
-      // Koden herunder køres kun ved tryk på knappen
-      .on("click", function () {
-        console.log(`Apple clicked`)
-
-        d3.json("/api/frugt/Apple", {
-          method: "POST",
-        }).then(function (response) {
-          const data = response.data; // Hent data ud af response
-          dataset.push([dataset.length, parseFloat(data[0].totalkgco2)]);
-          console.log(dataset);
-          updateSelectionAdd()
-        })
-      });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Denne query kører op imod API'en som findes i 'main.js'.
-    // Denne HTML skal derfor åbnes igennem serveren for at virke.
-    d3.json("/api/frugt/agurk", {
-      method: "POST",
-    }).then(function (response) {
-      const data = response.data; // Hent data ud af response
-      console.log("data:", data);
-
-      for (let q = 0; q < data.length; q++) {
-        console.log(data[q]);
-        console.log(`totalkgco2: ${data[q].totalkgco2}`);
       }
 
 
 
 
-      const w = 500;
-      const h = 350;
 
-      // Lav SVG element
-      const svg = d3.select("body")
-        .append("svg")
-        .attr("width", w)
-        .attr("height", h)
-        .attr("style", "border:1px solid black");
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
 
-      // Indsæt tekst fra postgres query som eksempel
-      console.log("Indsæt tekst fra postgres query som eksempel")
-      let textLabel = "";
-      svg.selectAll("text")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("x", 20)
-        .attr("y", 20)
-        .text(function (d) {
-          textLabel += `${d.navn} `
-          console.log(`${d.navn}`)
-        })
-        .text(`Svar fra database: ${textLabel}`)
-      console.log(`textLabel: ${textLabel}`)
-      // Lav din egen visualsering med data her!
-    });
+      function findIndexInArray(array1, number) {
+
+        for (let q = 0; q < array1.length; q++) {
+          if (array1[q][0] == number) {
+            return q
+          }
+        }
+
+      }
+      let agurkId = -1;
+      d3.select("#Agurk")
+        // Koden herunder køres kun ved tryk på knappen
+        .on("click", function () {
+          console.log(`Agurk clicked`)
 
 
-    function generateBarchart() {
-      // Lave barchart (søjlediagram)
-      svg.selectAll("rect")
-        .data(dataset)
-        .enter()
-        .append("rect")
-        // 'd' er datapunktet
-        // 'i' er index i datasættet
-        .attr("x", function (d, i) {
-          // Søjlerne spredes jævnt ud over 'w'
-          return i * (w / dataset.length);
-        })
-        .attr("y", function (d) {
-          // 'y' er position for søjlens øverste kant
-          // Husk, y-aksen vender på hovedet!
-          return h - (d * 4);
-        })
-        // Bredden er fast - og afhænger af 'w' og antallet af datapunkter
-        .attr("width", w / dataset.length - barPadding) // Padding skaber luft imellem søjler
-        // Højden er datapunktet * 4. 
-        .attr("height", function (d) {
-          return d * 4;
-        })
-        // Alle søjler er farvet 'teal'
-        .attr("fill", "teal");
-    }
+          if (agurkBool == true) {
+            d3.json("/api/frugt/agurk", {
+              method: "POST"
+            }).then(function (response) {
+              const data = response.data; // Hent data ud af response
+              agurkId = dataset.length;
+              console.log(`id: ${agurkId}`)
+              dataset.push([agurkId, parseFloat(data[0].totalkgco2)]);
+              console.log(dataset);
+              updateSelectionAdd()
+              agurkBool = false;
+              console.log("Agurkbool = true")
+            })
+          } else {
+            let index = findIndexInArray(dataset, agurkId)
+            console.log(`index : ${index}`)
+            dataset.splice(index, 1);
+            agurkBool = true;
+            console.log("Agurkbool = false")
+          }
+
+        });
+
+      let tomatId = -1;
+      d3.select("#Tomat")
+        // Koden herunder køres kun ved tryk på knappen
+        .on("click", function () {
+          console.log(`Tomat clicked`)
+
+          if (tomatBool == true) {
+            d3.json("/api/frugt/agurk", {
+              method: "POST"
+            }).then(function (response) {
+              const data = response.data; // Hent data ud af response
+              tomatId = dataset.length;
+              console.log(`id: ${tomatId}`)
+              dataset.push([tomatId, parseFloat(data[0].totalkgco2)]);
+              console.log(dataset);
+              updateSelectionAdd()
+              tomatBool = false;
+              console.log("tomatBool = true")
+            })
+          } else {
+            let index = findIndexInArray(dataset, tomatId)
+            console.log(`index : ${index}`)
+            dataset.splice(index, 1);
+            tomatBool = true;
+            console.log("tomatBool = false")
+          }
+
+        });
+
+      let appleId = -1;
+      d3.select("#Apple")
+        // Koden herunder køres kun ved tryk på knappen
+        .on("click", function () {
+          console.log(`Apple clicked`)
+
+          if (appleBool == true) {
+            d3.json("/api/frugt/agurk", {
+              method: "POST"
+            }).then(function (response) {
+              const data = response.data; // Hent data ud af response
+              appleId = dataset.length;
+              console.log(`id: ${appleId}`)
+              dataset.push([appleId, parseFloat(data[0].totalkgco2)]);
+              console.log(dataset);
+              updateSelectionAdd()
+              appleBool = false;
+              console.log("appleBool = true")
+            })
+          } else {
+            let index = findIndexInArray(dataset, appleId)
+            console.log(`index : ${index}`)
+            dataset.splice(index, 1);
+            appleBool = true;
+            console.log("appleBool = false")
+          }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Denne query kører op imod API'en som findes i 'main.js'.
+      // Denne HTML skal derfor åbnes igennem serveren for at virke.
+      d3.json("/api/frugt/agurk", {
+        method: "POST",
+      }).then(function (response) {
+        const data = response.data; // Hent data ud af response
+        console.log("data:", data);
+
+        for (let q = 0; q < data.length; q++) {
+          console.log(data[q]);
+          console.log(`totalkgco2: ${data[q].totalkgco2}`);
+        }
+
+
+
+
+        const w = 500;
+        const h = 350;
+
+        // Lav SVG element
+        const svg = d3.select("body")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h)
+          .attr("style", "border:1px solid black");
+
+        // Indsæt tekst fra postgres query som eksempel
+        console.log("Indsæt tekst fra postgres query som eksempel")
+        let textLabel = "";
+        svg.selectAll("text")
+          .data(data)
+          .enter()
+          .append("text")
+          .attr("x", 20)
+          .attr("y", 20)
+          .text(function (d) {
+            textLabel += `${d.navn} `
+            console.log(`${d.navn}`)
+          })
+          .text(`Svar fra database: ${textLabel}`)
+        console.log(`textLabel: ${textLabel}`)
+        // Lav din egen visualsering med data her!
+      });
+
+
+      function generateBarchart() {
+        // Lave barchart (søjlediagram)
+        svg.selectAll("rect")
+          .data(dataset)
+          .enter()
+          .append("rect")
+          // 'd' er datapunktet
+          // 'i' er index i datasættet
+          .attr("x", function (d, i) {
+            // Søjlerne spredes jævnt ud over 'w'
+            return i * (w / dataset.length);
+          })
+          .attr("y", function (d) {
+            // 'y' er position for søjlens øverste kant
+            // Husk, y-aksen vender på hovedet!
+            return h - (d * 4);
+          })
+          // Bredden er fast - og afhænger af 'w' og antallet af datapunkter
+          .attr("width", w / dataset.length - barPadding) // Padding skaber luft imellem søjler
+          // Højden er datapunktet * 4. 
+          .attr("height", function (d) {
+            return d * 4;
+          })
+          // Alle søjler er farvet 'teal'
+          .attr("fill", "teal");
+      }
 
     //generateBarchart()
-  </script>
+    </script>
 </body>
 
 </html>
