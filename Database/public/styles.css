@@ -13,27 +13,25 @@
     
     #product1 .pro{
         margin-right: 50px;
-
         width: 10%;
-        
         display: flex;
-        
         flex-direction: column;
-        
         padding: 20px;
-        
-        height:140px;
-        
+        height:180px;
         background-color: white;
-        
         border-radius: 10px;
-        
         white-space: normal;
         float:right;
         border-bottom: 10px;  
+       
+        
+       
+        
+    }
+
 
     
-    }
+    
     
     
     #product1 .pro:hover{
@@ -53,7 +51,8 @@
 
         margin: 0 25px;
         height: 125px;
-        
+        border-bottom: 1px solid black;
+        padding-bottom: 5px;
     
     }
 
