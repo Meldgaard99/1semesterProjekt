@@ -12,7 +12,7 @@
 
   <button id="Agurk"><b>Agurk</b></button>
   <button id="Tomat"><b>Tomat</b></button>
-  <button id="data3"><b>Æble</b></button>
+  <button id="Apple"><b>Æble</b></button>
   <svg width="100%" height="300" style="border:1px solid black" id="svg1">
     <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
 
@@ -25,16 +25,160 @@
     const w = 1000;
     const h = 100;
     const barPadding = 1; // Bruges til at lave afstand imellem søjler
+    const maxValue = 10;
 
     // Selve datasættet
-    let dataset = [5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
-      11, 12, 15, 20, 18, 17, 16, 18, 23, 25];
+    let dataset = [[0, 1], [1, 2], [2, 4], [3, 2]];
 
-    // Lav SVG-elementet
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Scale-funktioner
+    const xScale = d3.scaleBand()
+      .domain(d3.range(dataset.length))
+      .rangeRound([0, w])
+      .paddingInner(0.05);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, maxValue])
+      .range([0, h]);
+
+    // Lav et SVG element
     const svg = d3.select("body")
       .append("svg")
       .attr("width", w)
       .attr("height", h);
+
+    // Lav indledende barchart
+    svg.selectAll("rect")
+      .data(dataset, function (d) {
+        return d.key;
+      })
+      .enter()
+      .append("rect")
+      .attr("x", function (d, i) {
+        return xScale(i);
+      })
+      .attr("y", function (d) {
+        return h - yScale(d[1]);
+      })
+      .attr("width", xScale.bandwidth())
+      .attr("height", function (d) {
+        return yScale(d[1]);
+      })
+      .attr("fill", function (d) {
+        return d.color;
+      });
+
+    // Vælg elementet med id "klik_tilføj" og tilføj en handling		
+    d3.select("#Apple")
+      .on("click", function () {
+        // Kode herunder kører kun når der trykkes på knappen
+
+        // Opdater scale-funktioner
+        xScale.domain(d3.range(dataset.length));
+        yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig her
+
+        // select 'rects' og tilføj ny data
+        const updateSelection = svg.selectAll("rect")
+          .data(dataset, function (d) {
+            return d.key;
+          });
+
+        // 'enter' bruges til at animere det nye data
+        updateSelection.enter()
+          // Alt efter 'enter()' vedrører kun det nye datapunkt
+          .append("rect")
+          .attr("x", w)
+          .attr("y", function (d) {
+            return h - yScale(d.value);
+          })
+          .attr("width", xScale.bandwidth())
+          .attr("height", function (d) {
+            return yScale(d.value);
+          })
+          .attr("fill", function (d) {
+            return d.color;
+          })
+          // Her flettes det nye punkt sammen med de gamle punkter
+          .merge(updateSelection)
+          // Og animationen herunder vedrører alle punkter
+          .transition()
+          .duration(1500)
+          .attr("x", function (d, i) {
+            return xScale(i);
+          })
+          .attr("y", function (d) {
+            return h - yScale(d.value);
+          })
+          .attr("width", xScale.bandwidth())
+          .attr("height", function (d) {
+            return yScale(d.value);
+          });
+      });
+
+
+
+    function updateSelection() {
+
+      // Kode herunder kører kun når der trykkes på knappen
+
+      // Opdater scale-funktioner
+      xScale.domain(d3.range(dataset.length));
+      yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig igen
+
+      // select alle 'rects' og tilføj ny data
+      const updateSelection = svg.selectAll("rect")
+        .data(dataset, function (d) {
+          return d[0];
+        });
+
+      // Alle søjler animeres fint.
+      // De har alle fået nye værdier fordi der er fjernet et punkt
+      updateSelection.transition()
+        .duration(1500)
+        .attr("x", function (d, i) {
+          return xScale(i);
+        })
+        .attr("y", function (d) {
+          return h - yScale(d[1]);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function (d) {
+          return yScale(d[1]);
+        });
+
+      // 'exit' bruges til at animere den søjle der er fjernet, og kun den
+      updateSelection.exit()
+        .transition()
+        .delay(200)
+        .duration(2000)
+        .attr("fill", "#00000000") // Animere til usynlighed
+        .attr("x", w + 200) // Flytter søjlen ud til højre
+        .remove(); // 'rect' slettes
+
+
+    }
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 
 
     d3.select("#Agurk")
@@ -46,8 +190,9 @@
           method: "POST",
         }).then(function (response) {
           const data = response.data; // Hent data ud af response
-          dataset.push(`${data[0].totalkgco2}`);
-          generateBarchart()
+          dataset.push([dataset.length, parseFloat(data[0].totalkgco2)]);
+          console.log(dataset);
+          updateSelection()
         })
       });
 
@@ -61,12 +206,26 @@
           method: "POST",
         }).then(function (response) {
           const data = response.data; // Hent data ud af response
-          dataset.push(`${data[0].totalkgco2}`);
-          generateBarchart()
+          dataset.push([dataset.length, parseFloat(data[0].totalkgco2)]);
+          console.log(dataset);
+
         })
       });
 
+    d3.select("#Apple")
+      // Koden herunder køres kun ved tryk på knappen
+      .on("click", function () {
+        console.log(`Apple clicked`)
 
+        d3.json("/api/frugt/Apple", {
+          method: "POST",
+        }).then(function (response) {
+          const data = response.data; // Hent data ud af response
+          dataset.push([dataset.length, parseFloat(data[0].totalkgco2)]);
+          console.log(dataset);
+
+        })
+      });
 
 
 
@@ -167,7 +326,7 @@
         .attr("fill", "teal");
     }
 
-    generateBarchart()
+    //generateBarchart()
   </script>
 </body>
 
