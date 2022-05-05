@@ -65,6 +65,7 @@ app.use(morgan("combined"));
  */
 app.post("/api/frugt/tomat", async (req, res) => {
   try {
+    console.log("Get the tomat now")
     // Lav query
     const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 430;`;
     queryData = await client.query(query);
@@ -84,7 +85,9 @@ app.post("/api/frugt/tomat", async (req, res) => {
 });
 
 app.post("/api/frugt/agurk", async (req, res) => {
+
   try {
+    console.log("Get the agurk now")
     // Lav query
     const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 452;`;
     queryData = await client.query(query);
