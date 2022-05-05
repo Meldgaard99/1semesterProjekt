@@ -45,7 +45,7 @@
 
       // Selve datasættet
       let dataset = [];
-
+      let fruitID = 0;
 
 
       ///////////////////////////////////////////////////////////////////////////
@@ -215,7 +215,8 @@
               method: "POST"
             }).then(function (response) {
               const data = response.data; // Hent data ud af response
-              agurkId = dataset.length;
+              agurkId = fruitID;
+              fruitID += 1;
               console.log(`id: ${agurkId}`)
               dataset.push([agurkId, parseFloat(data[0].totalkgco2)]);
               console.log(dataset);
@@ -245,7 +246,8 @@
               method: "POST"
             }).then(function (response) {
               const data = response.data; // Hent data ud af response
-              tomatId = dataset.length;
+              tomatId = fruitID;
+              fruitID += 1;
               console.log(`id: ${tomatId}`)
               dataset.push([tomatId, parseFloat(data[0].totalkgco2)]);
               console.log(dataset);
@@ -275,7 +277,8 @@
               method: "POST"
             }).then(function (response) {
               const data = response.data; // Hent data ud af response
-              appleId = dataset.length;
+              appleId = fruitID;
+              fruitID += 1;
               console.log(`id: ${appleId}`)
               dataset.push([appleId, parseFloat(data[0].totalkgco2)]);
               console.log(dataset);
