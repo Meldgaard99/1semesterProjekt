@@ -18,8 +18,6 @@ const DB_NAME = process.env.DB_NAME || "ywiducgq";
 const DB_PW = process.env.DB_PW || "qs6-0cTm6mMnYBG6SeTUgTd6LX5upN7i";
 const DB_PORT = process.env.DB_PORT || 5432;
 
-
-//Hello
 /**
  * I stedet for at ændre på DB-værdierne i koden herover, er det bedre at gøre det som
  * en del af den måde man kører programmet på. Hver DB-værdi kan sættes i terminalen
@@ -65,11 +63,11 @@ app.use(morgan("combined"));
  * Man laver lige så mange endpoints man har lyst til. Jeg har lavet et enkelt til
  * querien `SELECT 'Hello, World' as message`.
  */
-app.post("/api/helloQuery", async (req, res) => {
-
+app.post("/api/frugt/tomat", async (req, res) => {
   try {
+    console.log("Get the tomat now")
     // Lav query
-    const query = `SELECT * FROM public."DenStoreKlimaDatabase"`;
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 430;`;
     queryData = await client.query(query);
     // Giv svar tilbage til JavaScript
     res.json({
@@ -84,7 +82,50 @@ app.post("/api/helloQuery", async (req, res) => {
       "message": error.message,
     })
   }
-  console.log(`${req.baseUrl}`)
+});
+
+app.post("/api/frugt/agurk", async (req, res) => {
+
+  try {
+    console.log("Get the agurk now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 452;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+});
+
+app.post("/api/frugt/Apple", async (req, res) => {
+
+  try {
+    console.log("Get the Apple now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
 });
 
 // Web-serveren startes.
