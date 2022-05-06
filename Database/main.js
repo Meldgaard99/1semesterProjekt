@@ -63,53 +63,10 @@ app.use(morgan("combined"));
  * Man laver lige så mange endpoints man har lyst til. Jeg har lavet et enkelt til
  * querien `SELECT 'Hello, World' as message`.
  */
-app.post("/api/frugt/tomat", async (req, res) => {
+app.post("/api/frugt/apple", async (req, res) => {
+  console.log("Main.js - Get the blomkål now1")
   try {
-    console.log("Get the tomat now")
-    // Lav query
-    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 430;`;
-    queryData = await client.query(query);
-    // Giv svar tilbage til JavaScript
-    res.json({
-      "ok": true,
-      "data": queryData.rows,
-    })
-  } catch (error) {
-    // Hvis query fejler, fanges det her.
-    // Send fejlbesked tilbage til JavaScript
-    res.json({
-      "ok": false,
-      "message": error.message,
-    })
-  }
-});
-
-app.post("/api/frugt/agurk", async (req, res) => {
-
-  try {
-    console.log("Get the agurk now")
-    // Lav query
-    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 452;`;
-    queryData = await client.query(query);
-    // Giv svar tilbage til JavaScript
-    res.json({
-      "ok": true,
-      "data": queryData.rows,
-    })
-  } catch (error) {
-    // Hvis query fejler, fanges det her.
-    // Send fejlbesked tilbage til JavaScript
-    res.json({
-      "ok": false,
-      "message": error.message,
-    })
-  }
-});
-
-app.post("/api/frugt/Apple", async (req, res) => {
-
-  try {
-    console.log("Get the Apple now")
+    console.log("Get the blomkål now")
     // Lav query
     const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
     queryData = await client.query(query);
@@ -128,7 +85,30 @@ app.post("/api/frugt/Apple", async (req, res) => {
   }
 })
 
-app.post("/api/frugt/blomkål", async (req, res) => {
+app.post("/api/frugt/agurk", async (req, res) => {
+
+  try {
+    console.log("Get the agurk now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+})
+
+app.post("/api/frugt/blomkal", async (req, res) => {
+  console.log("Main.js - Get the blomkål now1")
   try {
     console.log("Get the blomkål now")
     // Lav query
@@ -233,7 +213,6 @@ app.post("/api/frugt/kål", async (req, res) => {
   }
 })
 
-
 app.post("/api/frugt/kartoffel", async (req, res) => {
   try {
     console.log("Get the kartoffel now")
@@ -257,49 +236,7 @@ app.post("/api/frugt/kartoffel", async (req, res) => {
 
 app.post("/api/frugt/løg", async (req, res) => {
   try {
-    console.log("Get the løg now")
-    // Lav query
-    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 430;`;
-    queryData = await client.query(query);
-    // Giv svar tilbage til JavaScript
-    res.json({
-      "ok": true,
-      "data": queryData.rows,
-    })
-  } catch (error) {
-    // Hvis query fejler, fanges det her.
-    // Send fejlbesked tilbage til JavaScript
-    res.json({
-      "ok": false,
-      "message": error.message,
-    })
-  }
-});
-
-app.post("/api/frugt/pære", async (req, res) => {
-  try {
-    console.log("Get the pære now")
-    // Lav query
-    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 452;`;
-    queryData = await client.query(query);
-    // Giv svar tilbage til JavaScript
-    res.json({
-      "ok": true,
-      "data": queryData.rows,
-    })
-  } catch (error) {
-    // Hvis query fejler, fanges det her.
-    // Send fejlbesked tilbage til JavaScript
-    res.json({
-      "ok": false,
-      "message": error.message,
-    })
-  }
-});
-
-app.post("/api/frugt/peberfrugt", async (req, res) => {
-  try {
-    console.log("Get the peberfrugt now")
+    console.log("Get the kartoffel now")
     // Lav query
     const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
     queryData = await client.query(query);
@@ -318,9 +255,26 @@ app.post("/api/frugt/peberfrugt", async (req, res) => {
   }
 })
 
-
-
-
+app.post("/api/frugt/pære", async (req, res) => {
+  try {
+    console.log("Get the kartoffel now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+})
 
 
 
