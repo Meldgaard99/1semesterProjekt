@@ -126,7 +126,125 @@ app.post("/api/frugt/Apple", async (req, res) => {
       "message": error.message,
     })
   }
+})
+
+app.post("/api/frugt/blomkål", async (req, res) => {
+  try {
+    console.log("Get the blomkål now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+})
+
+app.post("/api/frugt/broccoli", async (req, res) => {
+  try {
+    console.log("Get the Broccoli now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+})
+
+app.post("/api/frugt/gulerod", async (req, res) => {
+  try {
+    console.log("Get the gulerod now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 430;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
 });
+
+app.post("/api/frugt/jordbær", async (req, res) => {
+  try {
+    console.log("Get the jordbær now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 452;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+});
+
+app.post("/api/frugt/kål", async (req, res) => {
+  try {
+    console.log("Get the kål now")
+    // Lav query
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 432;`;
+    queryData = await client.query(query);
+    // Giv svar tilbage til JavaScript
+    res.json({
+      "ok": true,
+      "data": queryData.rows,
+    })
+  } catch (error) {
+    // Hvis query fejler, fanges det her.
+    // Send fejlbesked tilbage til JavaScript
+    res.json({
+      "ok": false,
+      "message": error.message,
+    })
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Web-serveren startes.
 app.listen(PORT, () => console.log(`Serveren kører på http://localhost:${PORT}`));
