@@ -4,12 +4,40 @@
 <head>
     <script src="scripts/d3.js"></script>
     <title>Postgres node.js template med d3.js</title>
-    <link rel="stylesheet" href="styleTmp.css" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
-    
-    <section> 
+<body  class="gradient_bg"> </body>
+
+<section>
+    <div class="header">
+        <nav> 
+            <div class="titel">
+            <span>Vælg efter sæson</span>
+        
+            </div>
+        
+      </nav>
+
+     <div class="content"> 
+     <h1>Vælg <b> korrekt </h1>
+    <p>Masser af god tekst</p>
+    <div class="button-down">
+        <button>scroll ned</button> 
+
+    </div>
+</div>
+
+
+
+
+</section>
+
+
+
+<h1>God overskift!</h1>
+
+    <section class="section4"> 
         <!--Design af cards og knapper-->
     <div class="fruitcontainer">
         <button class="fruit-card-btn">
@@ -111,23 +139,12 @@
    
     </section>
 
-
-
-
-
-   
-
-    
-  
- 
-    
-
-
-    
-    
     
 
     <script type="text/javascript">
+
+
+
 
         let æbleBool = true;
         let agurkBool = true;
@@ -195,6 +212,10 @@
             .attr("fill", function (d) {
                 return d.color;
             });
+
+
+
+            
 
         // Vælg elementet med id "klik_tilføj" og tilføj en handling		
         function updateSelectionAdd() {
