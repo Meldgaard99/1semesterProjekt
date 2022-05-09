@@ -10,16 +10,15 @@
 <section class="header">
 
     <div class="titel">
-        <h1>Vælg efter sæson</h1>
-        <h3>Hej med dig</h3>
-        <h6>Tro på det</h6>
+        <h1>
+            Sesonal veggies <span>Matter</span></h1>
+
+                
     </div>
 
-    <div class="content">
-        <h1>Vælg korrekt</h1>
-        <p>Masser af god tekst</p>
-        <button id="button-down">scroll ned</button>
-    </div>
+    
+
+
 
 
 
@@ -170,6 +169,25 @@
 </div>
 
 
+<!--Dette nedestående er beregnet til at lavet footeren, har kun sat en class på, men beholdt de forskellig i samme div-->
+<footer>
+
+    <div class="footer-content">
+<h4>About us</h4>
+<p>Nyd lige dette mesterværk! det eneste der mangler er en god scroll up button
+    <b>første</b> mand der opdager det her og siger 123 får en øl
+</p>
+     
+<!--Dette nedestående er beregnet til at lavet til socials(direkte links) eller andet gøjl -->
+
+    <ul class="socials">
+        <li><a href="https://www.savetheglobe.info"></a></li>
+  
+     </ul>
+
+    </div>
+</footer>
+
 
 
 
@@ -210,6 +228,8 @@
     let dataset = [];
     let fruitID = 0;
 
+
+
     // Scale-funktioner
     const xScale = d3.scaleBand()
         .domain(d3.range(dataset.length))
@@ -246,7 +266,6 @@
         .attr("fill", function (d) {
             return d.color;
         });
-
 
 
 
