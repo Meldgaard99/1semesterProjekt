@@ -9,19 +9,54 @@
 .header {
 
     width: 100%;
-    height: 50vh;
+    min-height: 500px;
     background-image: url(grøntsager-realistisk/pexels-eneida-nieves-915001.jpg);
-
-    background-position: top;
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
     margin: auto;
     padding: 0;
 
+}
+      
+.titel {
+	position: absolute;
+	width: 600px;
+	height: 300px;
+	margin: 5% 30%;
+	text-align: center;
+}
+.titel h1 {
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 60px;
+}
+.titel h1 span {
+	color: #00fecb;
+}
+
+.titel p{
+    display: flex;
+    display: flex;
+    align-items: flex-start;
+    justify-content:center;
+    flex-direction:flex-end; 
+    font-size: 9px;
+    text-align: center;
+
+
 
 }
 
+
+#procent-text{
+    color: #00A85F;
+font-size: 9px;
+font-weight: bold;
+}
+/*------------------- Der bliver begyndt på første sektion eller første data viz---------------------------*/ 
 /* Split the screen in half */
 .split {
     height: 700px;
@@ -234,19 +269,4 @@ footer{
     margin: 1rem 0 3rem 0;
 }
 
-.titel {
-	position: absolute;
-	width: 600px;
-	height: 300px;
-	margin: 5% 30%;
-	text-align: center;
-}
-.titel h1 {
-	text-align: center;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 60px;
-}
-.titel h1 span {
-	color: #00fecb;
-}
+
