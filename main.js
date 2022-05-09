@@ -175,7 +175,7 @@ app.post("/api/frugt/jordbær", async (req, res) => {
   try {
     console.log("Get the jordbær now")
     // Lav query
-    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 452;`;
+    const query = `SELECT id, navn, totalkgco2 FROM public."denStoreKlimaDatabase" where id = 430;`;
     queryData = await client.query(query);
     // Giv svar tilbage til JavaScript
     res.json({
