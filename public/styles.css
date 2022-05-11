@@ -5,11 +5,10 @@
     font-family: 'poppins', sans-serif;
 }
 
-
 .header {
 
     width: 100%;
-    min-height: 500px;
+    min-height: 150px;
     background-image: url(grøntsager-realistisk/pexels-eneida-nieves-915001.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -17,26 +16,20 @@
     text-align: center;
     margin: auto;
     padding: 0;
-
-}
       
-.titel {
-	position: absolute;
-	width: 600px;
-	height: 300px;
-	margin: 5% 30%;
-	text-align: center;
 }
+
+
 .titel h1 {
 	text-align: center;
 	color: #fff;
 	text-transform: uppercase;
-	font-size: 60px;
+	font-size: 24px;
 }
 .titel h1 span {
 	color: #00fecb;
 }
-
+/*
 .titel p{
     display: flex;
     display: flex;
@@ -49,7 +42,7 @@
 
 
 }
-
+*/
 
 #procent-text{
     color: #00A85F;
@@ -59,8 +52,7 @@ font-weight: bold;
 /*------------------- Der bliver begyndt på første sektion eller første data viz---------------------------*/ 
 /* Split the screen in half */
 .split {
-    height: 700px;
-    width: 50%;
+    height: 1000px;
     position: absolute;
     z-index: 1;
     /*top: 0;*/
@@ -71,12 +63,21 @@ font-weight: bold;
   /* Control the left side */
   .left {
     left: 0;
+    width: 60%;
+  
   }
+
+.left h2 {
+
+    text-align: center;
+    color: #00A85F;
+
+}
   
   /* Control the right side */
   .right {
     right: 0;
-
+    width: 40%;
   }
   
   /* If you want the content centered horizontally and vertically */
@@ -164,6 +165,32 @@ div.fruitcontainer {
 
 
 }
+
+.remove-btn {
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+}
+
 
 
 
@@ -267,6 +294,7 @@ footer{
     align-items: center;
     justify-content: center;
     margin: 1rem 0 3rem 0;
+    color: #00A85F;
 }
 
 
