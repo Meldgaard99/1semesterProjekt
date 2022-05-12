@@ -12,6 +12,7 @@ const morgan = require("morgan"); // Some nice logging
  * DB_PORT er porten til databasen. Det plejer at være 5432, så den behøver man nok ikke ændre.
  */
 const PORT = process.env.PORT || 8080;
+
 const DB_USER = process.env.DB_USER || "ywiducgq";
 const DB_HOST = process.env.DB_HOST || "tai.db.elephantsql.com";
 const DB_NAME = process.env.DB_NAME || "ywiducgq";
@@ -58,13 +59,15 @@ app.use(express.text());
 app.use(express.static("public"))
 app.use(morgan("combined"));
 
+
+
 app.post("/api/frugt/getall", async (req, res) => { 
   try {
 
 
 
     // Lav query
-    const query1 = `SELECT "grøntsag" FROM public.co2indud;`;
+    const query1 = `SELECT "grøntsag" FROM public.co2indud`;
 
     queryData = await client.query(query1);
     // Giv svar tilbage til JavaScript
