@@ -11,34 +11,35 @@
 
     <div class="titel">
         <h1>Sesonal veggies <span>Matter</span></h1>
-        
-  
+
+
     </div>
 
 </section>
 
 <div class="split left">
-    <h2>Er Grøntsage grønne?</h2>
-        <section id="leftSide">
-            <button id="remove-btn">Fjern valgte dataer</button>
-            <h1>some text</h1>
-        </section>
+    <h2>Er Grøntsager grønne?</h2>
+    <section id="leftSide">
+        <button id="remove-btn">Fjern valgte data</button>
+        <h1>some text</h1>
+    </section>
 
-        <div class="centered">
-        </div>
+    <div class="centered">
+    </div>
 </div>
 
 <div class="split right">
 
     <section id="rightSide">
-        
-
     </section>
 
     <section class="section4">
+
         <!--Design af cards og knapper-->
+
+        <!--
         <div class="fruitcontainer">
-           
+
 
             <button id="jordbær" class="fruit-card-btn">
                 <img class="fruit-img" src="grøntsager-realistisk/animal-carnivore-cartoon-2-svgrepo-com.svg"
@@ -48,8 +49,8 @@
 
 
 
-           
-            <!--
+
+            
             <button id="gulerod" class="fruit-card-btn">
                 <img class="fruit-img" src="grøntsager-realistisk/Gulerod.jpg" style="width: 175px;" alt="">
                 <br><br>
@@ -153,17 +154,6 @@
             -->
 
     </section>
-    <div class="centered">
-
-
-
-
-
-
-
-
-
-    </div>
 </div>
 
 
@@ -197,8 +187,6 @@
 <script type="text/javascript">
 
     let allFruits = [{}];
-    const buttonWidth = "150x";
-    const buttonHeight = "40px";
 
     d3.json("/api/frugt/getall", {
         method: "POST"
@@ -209,16 +197,16 @@
 
 
 
+
         for (let index1 = 0; index1 < allFruits.length; index1++) {
-            const style1 = `border:1px solid black;width:${buttonWidth};height:${buttonHeight}`;
+            const style1 = `border:1px solid black`;
             const tmpName = allFruits[index1].grøntsag;
             const button = d3.select("#rightSide")
+
                 .append("button")
                 .attr("style", style1)
                 .attr("id", tmpName)
                 .attr("class", "fruit-card-btn")
-
-
 
 
                 .on("click", function () {
@@ -230,20 +218,21 @@
                         const data = response.data; // Hent data ud af response
                         console.log(data)
                         for (let q = 0; q < data.length; q++) {
+
                             if (data[q].grøntsag == tmpName) {
-
                                 dataset.push([data[q].grøntsag, parseFloat(data[q].ind)]);
-
-
+                                dataset.push([data[q].grøntsag, parseFloat(data[q].ud)]);
                             }
+
                         }
-
-
-
                         updateSelectionAdd()
                     })
-                    
+
                 });
+
+            document.getElementById(`${tmpName}`).innerText = `${tmpName}`
+
+
             /*
                         var myImage = new Image(100, 200);
                         myImage.src = 'grøntsager-realistisk/Peberfrugt.jpg';
@@ -284,8 +273,8 @@
 
 
     // Width og height
-    const w = 100;
-    const h = 550;
+    const w = 1142;
+    const h = 500;
     const barPadding = 1; // Bruges til at lave afstand imellem søjler
     const maxValue = 1;
     const bottomPadding = 20; // Plads til akse i bunden
@@ -309,32 +298,35 @@
 
     // Lav et SVG element
     const svg = d3.select("#leftSide")
-        .attr("id", "svgBarchart")
-        .attr("style", "border:1px solid black")
-        .attr("height", 550) /*tilføjet maks højde på barchart, de er de samme som const h*/
         .append("svg")
-        
+        .attr("style", "border:1px solid black")
+        .attr("id", "svgBarchart")
 
-    // Lav indledende barchart
-    svg.selectAll("rect")
-        .data(dataset, function (d) {
-            return d.key;
-        })
-        .enter()
-        .append("rect")
-        .attr("x", function (d, i) {
-            return xScale(i);
-        })
-        .attr("y", function (d) {
-            return h - yScale(d[1]);
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function (d) {
-            return yScale(d[1]);
-        })
-        .attr("fill", function (d) {
-            return d.color;
-        });
+
+    //tmp
+    function lavIndledendeBarchart() {
+        // Lav indledende barchart
+        svg.selectAll("rect")
+            .data(dataset, function (d) {
+                return d.key;
+            })
+            .enter()
+            .append("rect")
+            .attr("x", function (d, i) {
+                return xScale(i);
+            })
+            .attr("y", function (d) {
+                return h - yScale(d[1]);
+            })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function (d) {
+                return yScale(d[1]);
+            })
+            .attr("fill", function (d) {
+                return d.color;
+            });
+    }
+
 
 
 
@@ -347,7 +339,6 @@
     function updateSelectionAdd() {
         // Kode herunder kører kun når der trykkes på knappen
         console.log(`Data der skal visualiseres: ${dataset}`)
-
 
         // Opdater scale-funktioner
         xScale.domain(d3.range(dataset.length));
@@ -432,271 +423,43 @@
 
     }
 
-    function findIndexInArray(array1, number) {
+    /*
+        let kartoffelId = -1;
+        d3.select("#kartoffel")
+            // Koden herunder køres kun ved tryk på knappen
+            .on("click", function () {
+    
+                if (kålBool == true) {
+                    d3.json("/api/frugt/kartoffel", {
+                        method: "POST"
+                    }).then(function (response) {
+                        const data = response.data; // Hent data ud af response
+                        kartoffelId = fruitID;
+                        fruitID += 1;
+                        dataset.push([kartoffelId, parseFloat(data[0].totalkgco2)]);
+                        updateSelectionAdd()
+                        kålBool = false;
+                    })
+                } else {
+                    let index = findIndexInArray(dataset, kartoffelId)
+                    dataset.splice(index, 1);
+                    kartoffelBool = true;
+                    updateSelectionRemoval()
+                }
+            });
+    
+    
+    */
 
-        for (let q = 0; q < array1.length; q++) {
-            if (array1[q][0] == number) {
-                return q
-            }
-        }
-
-    }
-
-
-
-    let æbleId = -1;
-    d3.select("#Rødebederod")
-        // Koden herunder køres kun ved tryk på knappen
+    // Vælg elementet med id "remove-btn" 		
+    d3.select("#remove-btn")
         .on("click", function () {
-            console.log("index - get æble")
-            if (æbleBool == true) {
-                console.log("æbleBool - get æble")
-                d3.json("/api/frugt/æble", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    æbleId = fruitID;
-                    fruitID += 1;
-                    dataset.push([æbleId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    æbleBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, æbleId)
-                dataset.splice(index, 1);
-                æbleBool = true;
-                updateSelectionRemoval()
-            }
+            // Kode herunder kører kun når der trykkes på knappen
+            // Fjern sidste element   
+            dataset.pop();
 
+            updateSelectionRemoval();
         });
-
-    let agurkId = -1;
-    d3.select("#agurk")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-            console.log("Agurk clicked")
-            if (tomatBool == true) {
-                d3.json("/api/frugt/agurk", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    agurkId = fruitID;
-                    fruitID += 1;
-                    dataset.push([agurkId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    agurkBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, agurkId)
-                dataset.splice(index, 1);
-                agurkBool = true;
-                updateSelectionRemoval()
-            }
-
-        });
-
-    let BlomkålId = -1;
-    d3.select("#blomkål")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-            console.log("index - get blomkål")
-            if (blomkålBool == true) {
-                console.log("blomkålBool - get blomkål")
-
-                d3.json("/api/frugt/blomkal", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    BlomkålId = fruitID;
-                    fruitID += 1;
-                    dataset.push([BlomkålId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    blomkålBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, BlomkålId)
-                dataset.splice(index, 1);
-                blomkålBool = true;
-                updateSelectionRemoval()
-            }
-
-        });
-
-    let BroccoliId = -1;
-    d3.select("#broccoli")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-            console.log("broccoli clicked")
-            if (broccoliBool == true) {
-                d3.json("/api/frugt/broccoli", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    BroccoliId = fruitID;
-                    fruitID += 1;
-                    dataset.push([BroccoliId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    broccoliBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, BroccoliId)
-                dataset.splice(index, 1);
-                broccoliBool = true;
-                updateSelectionRemoval()
-            }
-        });
-
-    let GulerodId = -1;
-    d3.select("#gulerod")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-            console.log("Gulerod clicked")
-            if (gulerodBool == true) {
-                d3.json("/api/frugt/gulerod", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    GulerodId = fruitID;
-                    fruitID += 1;
-                    dataset.push([GulerodId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    gulerodBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, GulerodId)
-                dataset.splice(index, 1);
-                gulerodBool = true;
-                updateSelectionRemoval()
-            }
-        });
-
-    let jordbærId = -1;
-    d3.select("#jordbær")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-            console.log("Jordbær clicked")
-            if (jordbærBool == true) {
-                console.log("true")
-                d3.json("/api/frugt/jordbær", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    jordbærId = fruitID;
-                    fruitID += 1;
-                    dataset.push([jordbærId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    jordbærBool = false;
-                })
-            } else {
-                console.log("false")
-                let index = findIndexInArray(dataset, jordbærId)
-                dataset.splice(index, 1);
-                jordbærBool = true;
-                updateSelectionRemoval()
-            }
-        });
-
-
-    let kålId = -1;
-    d3.select("#kål")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-
-            if (kålBool == true) {
-                d3.json("/api/frugt/kål", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    kålBool = fruitID;
-                    fruitID += 1;
-                    dataset.push([kålId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    kålBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, kålId)
-                dataset.splice(index, 1);
-                kålBool = true;
-                updateSelectionRemoval()
-            }
-        });
-
-
-    let kartoffelId = -1;
-    d3.select("#kartoffel")
-        // Koden herunder køres kun ved tryk på knappen
-        .on("click", function () {
-
-            if (kålBool == true) {
-                d3.json("/api/frugt/kartoffel", {
-                    method: "POST"
-                }).then(function (response) {
-                    const data = response.data; // Hent data ud af response
-                    kartoffelId = fruitID;
-                    fruitID += 1;
-                    dataset.push([kartoffelId, parseFloat(data[0].totalkgco2)]);
-                    updateSelectionAdd()
-                    kålBool = false;
-                })
-            } else {
-                let index = findIndexInArray(dataset, kartoffelId)
-                dataset.splice(index, 1);
-                kartoffelBool = true;
-                updateSelectionRemoval()
-            }
-        });
-        // Vælg elementet med id "klik_fjern" og tilføj en handling		
-        d3.select("#remove-btn")
-      .on("click", function () {
-        // Kode herunder kører kun når der trykkes på knappen
-
-        // Fjern sidste element   
-        dataset.pop();
-
-        // Opdater scale-funktioner
-        xScale.domain(d3.range(dataset.length));
-        yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig igen
-
-        // select alle 'rects' og tilføj ny data
-        const updateSelection = svg.selectAll("rect")
-          .data(dataset, function (d) {
-            return d.key;
-          });
-
-        // Alle søjler animeres fint.
-        // De har alle fået nye værdier fordi der er fjernet et punkt
-        updateSelection.transition()
-          .duration(1500)
-          .attr("x", function (d, i) {
-            return xScale(i);
-          })
-          .attr("y", function (d) {
-            return h - yScale(d.value);
-          })
-          .attr("width", xScale.bandwidth())
-          .attr("height", function (d) {
-            return yScale(d.value);
-          });
-
-        // 'exit' bruges til at animere den søjle der er fjernet, og kun den
-        updateSelection.exit()
-          .transition()
-          .delay(200)
-          .duration(2000)
-          .attr("fill", "#00000000") // Animere til usynlighed
-          .attr("x", w + 200) // Flytter søjlen ud til højre
-          .remove(); // 'rect' slettes
-      });
-
-
-
-
-
-
-
-
-
-
 </script>
 
 

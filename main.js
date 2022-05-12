@@ -60,15 +60,19 @@ app.use(morgan("combined"));
 
 app.post("/api/frugt/getall", async (req, res) => { 
   try {
+
+
+
     // Lav query
     const query1 = `SELECT "grøntsag" FROM public.co2indud;`;
+
     queryData = await client.query(query1);
     // Giv svar tilbage til JavaScript
     res.json({
       "ok": true,
       "data": queryData.rows,
+      
     })
-    return queryData.rows
   } catch (error) {
     // Hvis query fejler, fanges det her.
     // Send fejlbesked tilbage til JavaScript
