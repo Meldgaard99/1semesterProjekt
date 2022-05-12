@@ -24,8 +24,6 @@
         <h1>some text</h1>
     </section>
 
-    <img src="grøntsager-realistisk/Agurk.jpg" alt="">
-
     <div class="centered">
     </div>
 </div>
@@ -170,31 +168,6 @@
         .append("svg")
         .attr("style", "border:1px solid black")
         .attr("id", "svgBarchart")
-
-
-    //tmp
-    function lavIndledendeBarchart() {
-        // Lav indledende barchart
-        svg.selectAll("rect")
-            .data(dataset, function (d) {
-                return d.key;
-            })
-            .enter()
-            .append("rect")
-            .attr("x", function (d, i) {
-                return xScale(i);
-            })
-            .attr("y", function (d) {
-                return h - yScale(d[1]);
-            })
-            .attr("width", xScale.bandwidth())
-            .attr("height", function (d) {
-                return yScale(d[1]);
-            })
-            .attr("fill", function (d) {
-                return d.color;
-            });
-    }
 
 
 
