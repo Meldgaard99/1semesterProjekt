@@ -23,32 +23,10 @@
         <button id="remove-btn">Fjern valgte data</button>
         <h1>some text</h1>
     </section>
-
-    <div class="centered">
-    </div>
 </div>
 
 <div class="split right">
-
     <section id="rightSide">
-    </section>
-
-    <section class="section4">
-
-        <!--Design af cards og knapper-->
-
-        <!--
-        <div class="fruitcontainer">
-
-
-            <button id="jordbær" class="fruit-card-btn">
-                <img class="fruit-img" src="grøntsager-realistisk/animal-carnivore-cartoon-2-svgrepo-com.svg"
-                    style="width: 175px;" alt="">
-                <h5>Jordbær</h5>
-            </button>
-
--->
-
     </section>
 </div>
 
@@ -91,9 +69,6 @@
         allFruits = data
         console.log(`Data from "getall": ${data}`);
 
-
-
-
         for (let index1 = 0; index1 < allFruits.length; index1++) {
             const style1 = `border:1px solid black`;
             const tmpName = allFruits[index1].grøntsag;
@@ -103,8 +78,7 @@
                 .attr("style", style1)
                 .attr("id", tmpName)
                 .attr("class", "fruit-card-btn")
-
-
+                .attr("background", `url([grøntsager-realistisk/${tmpName}.jpg])`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
 
@@ -117,7 +91,6 @@
 
                             if (data[q].grøntsag == tmpName) {
                                 dataset.push([data[q].grøntsag, parseFloat(data[q].ind)]);
-                                dataset.push([data[q].grøntsag, parseFloat(data[q].ud)]);
                             }
 
                         }
@@ -126,7 +99,13 @@
 
                 });
 
-            document.getElementById(`${tmpName}`).innerText = `${tmpName} <img src="grøntsager-realistisk/Agurk.jpg" alt="">`
+            const image1 = document.createElement("img");
+            image1.src = `grøntsager-realistisk/${tmpName}.png`;
+            image1.width = 50
+            image1.height = 50
+            document.getElementById(`${tmpName}`).appendChild(image1);
+
+            //document.getElementById(`${tmpName}`).innerText = `${tmpName}`
         }
 
 
@@ -261,8 +240,6 @@
             .attr("fill", "#00000000") // Animere til usynlighed
             .attr("x", w + 200) // Flytter søjlen ud til højre
             .remove(); // 'rect' slettes
-
-
     }
 
     /*
