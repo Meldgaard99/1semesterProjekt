@@ -67,7 +67,7 @@ app.post("/api/frugt/getall", async (req, res) => {
 
 
     // Lav query
-    const query1 = `SELECT "grøntsag" FROM public.co2indud`;
+    const query1 = 'SELECT grøntsag FROM public.co2indud';
 
     queryData = await client.query(query1);
     // Giv svar tilbage til JavaScript
@@ -90,7 +90,7 @@ app.post("/api/frugt/getall", async (req, res) => {
 app.post("/api/frugt/getco2indud", async (req, res) => { 
   try {
     // Lav query
-    const query1 = `SELECT "grøntsag", "ind", "ud" FROM public.co2indud;`;
+    const query1 = `SELECT "grøntsag", ind, ud FROM public.co2indud;`;
     queryData = await client.query(query1);
     // Giv svar tilbage til JavaScript
     res.json({
@@ -112,7 +112,8 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
 
 
 
-
+/*
+Husk at outcomment Boes!
 
 
 /*
@@ -120,6 +121,7 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
  * Man laver lige så mange endpoints man har lyst til. Jeg har lavet et enkelt til
  * querien `SELECT 'Hello, World' as message`.
  */
+/*
 app.post("/api/frugt/apple", async (req, res) => {
   console.log("Main.js - Get the apple now")
   try {
@@ -145,9 +147,9 @@ app.post("/api/frugt/apple", async (req, res) => {
 app.post("/api/frugt/agurk", async (req, res) => {
 
   try {
-    console.log("Get the agurk now")
+    console.log("Get the agurk now ")
     // Lav query
-    const query = `SELECT "grøntsag", ind, ud FROM public.co2indud;`;
+    const query = `SELECT "grøntsag", ind, ud FROM public.co2indud where id = '12';` 
     queryData = await client.query(query);
     // Giv svar tilbage til JavaScript
     res.json({
@@ -334,7 +336,7 @@ app.post("/api/frugt/pære", async (req, res) => {
 
 
 
-
+*/
 
 
 

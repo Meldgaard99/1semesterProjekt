@@ -24,7 +24,7 @@
     <h2>Er Grøntsager grønne?</h2>
     <section id="leftSide">
         <button id="remove-btn">Fjern valgte data</button>
-        <h1>some text</h1>
+        <h1>Oversigt over klimaftryk med indland og udeland</h1>
     </section>
 </div>
 
@@ -62,7 +62,7 @@
     </div>
 </footer>
 
-
+/
 
 
 <script type="text/javascript">
@@ -97,8 +97,17 @@
                         for (let q = 0; q < data.length; q++) {
 
                             if (data[q].grøntsag == tmpName) {
-                                dataset.push([data[q].grøntsag, parseFloat(data[q].ind)]);
+                                dataset.push([data[q].grøntsag, parseFloat(data[q].ind)])
+                                dataset.push([data[q].grøntsag, parseFloat(data[q].ud)])
                             }
+                        
+                            
+                            
+
+                     
+                            
+
+                            
 
                         }
                         updateSelectionAdd()
@@ -125,8 +134,8 @@
 
 
 
-    // Width og height
-    const w = 1142;
+    // Width og height på selve søjlerne 
+    const w = 250;
     const h = 500;
     const barPadding = 1; // Bruges til at lave afstand imellem søjler
     const maxValue = 1;
@@ -154,7 +163,11 @@
         .append("svg")
         .attr("style", "border:1px solid black")
         .attr("id", "svgBarchart")
+        
 
+
+
+        
 
 
 
@@ -191,7 +204,7 @@
                 return yScale(d[1]);
             })
             .attr("fill", function (d) {
-                return "black";
+                return "red";
             })
             // Her flettes det nye punkt sammen med de gamle punkter
             .merge(updateSelection)
