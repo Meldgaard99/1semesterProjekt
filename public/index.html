@@ -154,17 +154,27 @@
         // Lav et SVG element
         const svg = d3.select("#leftSide")
             .append("svg")
-            .attr("style", "border:1px solid black")
+            /*.attr("style", "border:1px solid black")*/
             .attr("id", "svgBarchart")
            
 
+    // En scaleBand benytter sig af ordenstal i stedet for et interval af tal
+    const xScale = d3.scaleBand()
+      // Domænet er alle værdier på plads nr. 2 i hvert indre array
+      // Husk, domænet består kun af 20 tal - hverken mere eller mindre
+      // Så domænet er præcist 20 tal, i en bestemt rækkefølge.
+      .domain(dataset.map(function (d) { return d[1] }))
+      // Output-området er fra 0 til 'w'
+      .range([0, w])
+      // Vi sætter padding imellem søjlerne også
+      .paddingInner(0.10);
 
-        // Laver en scale for X-aksen
-        let xScale = d3.scaleBand()
-            .domain(d3.range(dataset.length))
-            .rangeRound([0, w])
-            .paddingInner(0.05);
+    // Traditionel skaleringsfunktion for 'y'.
+    const yScale = d3.scaleLinear()
+      .domain([0, maxValue])
+      .range([0, h]);
 
+            /*
         // Definerer X-aksen ticks er hvor meget der skal vises på stregen, lige nu kommer der til at stå 16 ting 
         let xAxis = d3.axisBottom()
             .scale(xScale)
@@ -191,7 +201,7 @@
         // Definerer y-aksen
         let yAxis = d3.axisLeft()
             .scale(yScale)
-            .ticks(0)
+            .ticks(3)
             .tickPadding(10);
 
         // Appender y-aksen til SVG'en
@@ -211,22 +221,23 @@
             .text("Grøtn")
 
        
-// GRID LINES
-// prøver at appende lidt grid lines 
-svg.append 
-    .select("g#y-axis")
-    .selectAll("g.tick")
-    .append("line")
-    .attr("x1", 0)
-    .attr("y1", 0)
-    .attr("x2", width)
-    .attr("y2", 0)
-    .style("opacity", 0.3);
+*/
+/*
+
+  //opretter label der skal vises når der hoveres, 'text' sættes til i[1], fixes til 2 så 
+  svg.append("text")
+                  .attr("id", "tooltip")
+                  .attr("x", xScale)
+                  .attr("y", yPosition - 21)
+                  .attr("text-anchor", "middle")
+                  .attr("font-family", "sans-serif")
+                  .attr("font-size", "15px")
+                  .attr("font-weight", "bold")
+                  .attr("fill", "rgba(255, 255, 255, 0.74)")
+                  .text(parseFloat(i[1]).toFixed(2));
 
 
-
-
-
+*/
 
 
 
