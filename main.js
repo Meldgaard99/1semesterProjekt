@@ -108,8 +108,28 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
 })
 
 
-
-
+app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
+  try {
+      // Lav query
+      const query1 = `SELECT "Grøntsag", "Januar" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
+      queryData = await client.query(query1);
+      // Giv svar tilbage til JavaScript
+      res.json({
+        "ok": true,
+        "data": queryData.rows,
+      })
+    } catch (error) {
+      // Hvis query fejler, fanges det her.
+      // Send fejlbesked tilbage til JavaScript
+      res.json({
+        "ok": false,
+        "message": error.message,
+      })
+    }
+  })
+  
+  
+ 
 
 
 /*
