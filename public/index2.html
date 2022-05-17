@@ -39,7 +39,7 @@
 <section class="kalender">   
 <div class = "oversigt">
 
-
+<p>gj</p>
 </div>
 </section>
    
@@ -51,17 +51,7 @@
  // 
 
  function grøntbox1(seasonal) {
-            console.log("hello world");
- }
-
-d3.selectAll("#klik1")
-.on("click"),function(){
-
-    grøntbox1(seasonal); 
-        //function grøntbox(seasonal) {
-        //    console.log("hello world");
-/*
-            for (let index1 = 0; index1 < seasonal.length; index1++) {
+    for (let index1 = 0; index1 < seasonal.length; index1++) {
                 const style1 = `border:1px solid black`;
                 const tmpName = seasonal[index1].grøntsag;
                 const button = d3.select(".kalender")
@@ -73,10 +63,22 @@ d3.selectAll("#klik1")
                     .on("click", function () {
                         console.log(`${tmpName} clicked`)
 
+                        
+
                     })
                 }
            };
        
+ 
+
+d3.selectAll("#klik1")
+.on("click"),function(){
+
+    grøntbox1(seasonal); 
+        //function grøntbox(seasonal) {
+        //    console.log("hello world");
+/*
+          
         const image1 = document.createElement("img");
         image1.src = `grøntsager-realistisk/${tmpName}.png`;
         image1.width = 50
