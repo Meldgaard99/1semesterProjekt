@@ -79,7 +79,7 @@
             for (let index1 = 0; index1 < allFruits.length; index1++) {
                 const style1 = `border:1px solid black`;
                 const tmpName = allFruits[index1].grøntsag;
-                const button = d3.select(".rightSide") 
+                const button = d3.select("#rightSide")
 
                     .append("button")
                     .attr("style", style1)
@@ -100,10 +100,7 @@
                                     dataset.push([data[q].grøntsag, parseFloat(data[q].ind)])
                                     dataset.push([data[q].grøntsag, parseFloat(data[q].ud)])
                                 }
-
-
-
-
+                            
 
 
 
@@ -111,7 +108,11 @@
 
                             }
                             updateSelectionAdd()
-                        })
+
+
+
+                     })
+
 
                     });
 
@@ -121,18 +122,12 @@
                 image1.height = 50
                 document.getElementById(`${tmpName}`).appendChild(image1);
 
-                //document.getElementById(`${tmpName}`).innerText = `${tmpName}`
-            }
+//document.getElementById(`${tmpName}`).innerText = `${tmpName}`
 
-
-
-
+}
 
 
         })
-
-
-
 
         // Width og height på selve søjlerne 
         const w = 250;
@@ -141,7 +136,7 @@
         const maxValue = 1;
         const bottomPadding = 20; // Plads til akse i bunden
         const sidePadding = 10; // Lidt luft i siderne også
-        const padding = 69; 
+        const padding = 69;
 
         // Selve datasættet
         let dataset = [];
@@ -156,88 +151,101 @@
             .append("svg")
             /*.attr("style", "border:1px solid black")*/
             .attr("id", "svgBarchart")
-           
-
-    // En scaleBand benytter sig af ordenstal i stedet for et interval af tal
-    const xScale = d3.scaleBand()
-      // Domænet er alle værdier på plads nr. 2 i hvert indre array
-      // Husk, domænet består kun af 20 tal - hverken mere eller mindre
-      // Så domænet er præcist 20 tal, i en bestemt rækkefølge.
-      .domain(dataset.map(function (d) { return d[1] }))
-      // Output-området er fra 0 til 'w'
-      .range([0, w])
-      // Vi sætter padding imellem søjlerne også
-      .paddingInner(0.10);
-
-    // Traditionel skaleringsfunktion for 'y'.
-    const yScale = d3.scaleLinear()
-      .domain([0, maxValue])
-      .range([0, h]);
-
-            /*
-        // Definerer X-aksen ticks er hvor meget der skal vises på stregen, lige nu kommer der til at stå 16 ting 
-        let xAxis = d3.axisBottom()
-            .scale(xScale)
-            .tickFormat(d => d)
-            .ticks(16)
-            .tickPadding(7);
-
-        // Appender x-aksen til SVG'en
-        svg.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0, " + (h + 130) + ")")
-            .call(xAxis)
-
-        // Appender label til x-aksen
-        svg.append("text")
-            .attr("text-anchor", "end")
-            .attr("class", "Grøntsagstabel")
-            .attr("x", w - padding)
-            .attr("y", h - 200)
-            .text("Grøntsager/frugter")
 
 
+        // En scaleBand benytter sig af ordenstal i stedet for et interval af tal
+        const xScale = d3.scaleBand()
+            // Domænet er alle værdier på plads nr. 2 i hvert indre array
+            // Husk, domænet består kun af 20 tal - hverken mere eller mindre
+            // Så domænet er præcist 20 tal, i en bestemt rækkefølge.
+            .domain(dataset.map(function (d) { return d[1] }))
+            // Output-området er fra 0 til 'w'
+            .range([0, w])
+            // Vi sætter padding imellem søjlerne også
+            .paddingInner(0.10);
 
-        // Definerer y-aksen
-        let yAxis = d3.axisLeft()
-            .scale(yScale)
-            .ticks(3)
-            .tickPadding(10);
-
-        // Appender y-aksen til SVG'en
-        svg.append("g")
-            .attr("class", "y-axis")
-            .attr("transform", "translate(" + (padding) + ",0)")
+        // Traditionel skaleringsfunktion for 'y'.
+        const yScale = d3.scaleLinear()
+            .domain([0, maxValue])
+            .range([0, h])
+            
+            const xAxis = d3.axisBottom().scale(xScale);
 
 
+// På SVG laver vi en <g>
+// <g> er en container der indeholder andre SVG-elementer.
+svg.append("g") 
+  // "transform" er en flytning af hele <g>
+  // Eller på dansk: "parallelforskydning".
+  // Den flyttes ned i bunden af diagrammet
+  .attr("transform", "translate(0," +  (525 - bottomPadding) + ")")
+  // "call" bruger akse-funktionen til at lave selve aksen.
+  .call(d3.axisBottom(xScale));
+
+        /*
+    // Definerer X-aksen ticks er hvor meget der skal vises på stregen, lige nu kommer der til at stå 16 ting 
+    let xAxis = d3.axisBottom()
+        .scale(xScale)
+        .tickFormat(d => d)
+        .ticks(16)
+        .tickPadding(7);
+
+    // Appender x-aksen til SVG'en
+    svg.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", "translate(0, " + (h + 130) + ")")
+        .call(xAxis)
+
+    // Appender label til x-aksen
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("class", "Grøntsagstabel")
+        .attr("x", w - padding)
+        .attr("y", h - 200)
+        .text("Grøntsager/frugter")
+
+
+
+    // Definerer y-aksen
+    let yAxis = d3.axisLeft()
+        .scale(yScale)
+        .ticks(3)
+        .tickPadding(10);
+
+    // Appender y-aksen til SVG'en
+    svg.append("g")
+        .attr("class", "y-axis")
+        .attr("transform", "translate(" + (padding) + ",0)")
+
+
+    
+
+    // Sætter eller prøver y-akse label på grafen
+    svg.append("text")
+        .attr("class", "Grøntsagstabel")
+        .attr("text-anchor", "end")
+        .attr("x", padding + 20)
+        .attr("y", padding)
+        .text("Grøtn")
+
+   
+*/
+        /*
         
-
-        // Sætter eller prøver y-akse label på grafen
-        svg.append("text")
-            .attr("class", "Grøntsagstabel")
-            .attr("text-anchor", "end")
-            .attr("x", padding + 20)
-            .attr("y", padding)
-            .text("Grøtn")
-
-       
-*/
-/*
-
-  //opretter label der skal vises når der hoveres, 'text' sættes til i[1], fixes til 2 så 
-  svg.append("text")
-                  .attr("id", "tooltip")
-                  .attr("x", xScale)
-                  .attr("y", yPosition - 21)
-                  .attr("text-anchor", "middle")
-                  .attr("font-family", "sans-serif")
-                  .attr("font-size", "15px")
-                  .attr("font-weight", "bold")
-                  .attr("fill", "rgba(255, 255, 255, 0.74)")
-                  .text(parseFloat(i[1]).toFixed(2));
-
-
-*/
+          //opretter label der skal vises når der hoveres, 'text' sættes til i[1], fixes til 2 så 
+          svg.append("text")
+                          .attr("id", "tooltip")
+                          .attr("x", xScale)
+                          .attr("y", yPosition - 21)
+                          .attr("text-anchor", "middle")
+                          .attr("font-family", "sans-serif")
+                          .attr("font-size", "15px")
+                          .attr("font-weight", "bold")
+                          .attr("fill", "rgba(255, 255, 255, 0.74)")
+                          .text(parseFloat(i[1]).toFixed(2));
+        
+        
+        */
 
 
 
