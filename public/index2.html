@@ -49,11 +49,18 @@
  
  
  // 
+
+ function grøntbox1(seasonal) {
+            console.log("hello world");
+ }
+
 d3.selectAll("#klik1")
 .on("click"),function(){
 
-        function grøntbox(seasonal) {
-
+    grøntbox1(seasonal); 
+        //function grøntbox(seasonal) {
+        //    console.log("hello world");
+/*
             for (let index1 = 0; index1 < seasonal.length; index1++) {
                 const style1 = `border:1px solid black`;
                 const tmpName = seasonal[index1].grøntsag;
@@ -75,11 +82,11 @@ d3.selectAll("#klik1")
         image1.width = 50
         image1.height = 50
         document.getElementById(`${tmpName}`).appendChild(image1);
-            
+            */
+     //   }
         }
-
         let seasonal = [{}];
-
+    
         d3.json("/api/frugt/seasonalVegatabels1",{
             method: "POST"
         }).then(function (response) {
@@ -87,15 +94,16 @@ d3.selectAll("#klik1")
             
             
             seasonal = data
-            
-            grøntbox(seasonal);
+            console.log(response);
+            grøntbox1(seasonal);
+        
 
             console.log(`Data from "getall": ${data}`);
         }
         )
         //document.getElementById(`${tmpName}`).innerText = `${tmpName}`
     
-
+    
 </script>
 
 

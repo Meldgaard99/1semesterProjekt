@@ -111,13 +111,16 @@ app.post("/api/frugt/seasonalVegatabels1", async (req, res) => {
   try {
       // Lav query
       const queryjanuar = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
-      queryData = await client.query(query1);
+   
+      queryData = await client.query(queryjanuar);
+  
       // Giv svar tilbage til JavaScript
       res.json({
-        "ok": true,
+        "ok": true, 
         "data": queryData.rows,
       })
     } catch (error) {
+      console.log("noget gik galt");
       // Hvis query fejler, fanges det her.
       // Send fejlbesked tilbage til JavaScript
       res.json({
