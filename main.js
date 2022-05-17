@@ -108,10 +108,10 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
 })
 
 
-app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
+app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
   try {
       // Lav query
-      const query1 = `SELECT "Grøntsag", "Januar" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
+      const queryjanuar = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
       queryData = await client.query(query1);
       // Giv svar tilbage til JavaScript
       res.json({
@@ -128,8 +128,230 @@ app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
     }
   })
   
+  app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+    try {
+        // Lav query
+        const queryfebruar = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Februar" LIKE 'x%';`;
+        queryData = await client.query(query1);
+        // Giv svar tilbage til JavaScript
+        res.json({
+          "ok": true,
+          "data": queryData.rows,
+        })
+      } catch (error) {
+        // Hvis query fejler, fanges det her.
+        // Send fejlbesked tilbage til JavaScript
+        res.json({
+          "ok": false,
+          "message": error.message,
+        })
+      }
+    })
   
- 
+    app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+      try {
+          // Lav query
+          const querymarts = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Marts" LIKE 'x%';`;
+          queryData = await client.query(query1);
+          // Giv svar tilbage til JavaScript
+          res.json({
+            "ok": true,
+            "data": queryData.rows,
+          })
+        } catch (error) {
+          // Hvis query fejler, fanges det her.
+          // Send fejlbesked tilbage til JavaScript
+          res.json({
+            "ok": false,
+            "message": error.message,
+          })
+        }
+      })
+    
+
+      app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+        try {
+            // Lav query
+            const queryapril = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "April" LIKE 'x%';`;
+            queryData = await client.query(query1);
+            // Giv svar tilbage til JavaScript
+            res.json({
+              "ok": true,
+              "data": queryData.rows,
+            })
+          } catch (error) {
+            // Hvis query fejler, fanges det her.
+            // Send fejlbesked tilbage til JavaScript
+            res.json({
+              "ok": false,
+              "message": error.message,
+            })
+          }
+        })
+   
+        app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+          try {
+              // Lav query
+              const querymaj = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Maj" LIKE 'x%';`;
+              queryData = await client.query(query1);
+              // Giv svar tilbage til JavaScript
+              res.json({
+                "ok": true,
+                "data": queryData.rows,
+              })
+            } catch (error) {
+              // Hvis query fejler, fanges det her.
+              // Send fejlbesked tilbage til JavaScript
+              res.json({
+                "ok": false,
+                "message": error.message,
+              })
+            }
+          })
+
+          app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+            try {
+                // Lav query
+                const queryjuni = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Juni" LIKE 'x%';`;
+                queryData = await client.query(query1);
+                // Giv svar tilbage til JavaScript
+                res.json({
+                  "ok": true,
+                  "data": queryData.rows,
+                })
+              } catch (error) {
+                // Hvis query fejler, fanges det her.
+                // Send fejlbesked tilbage til JavaScript
+                res.json({
+                  "ok": false,
+                  "message": error.message,
+                })
+              }
+            })
+
+            app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+              try {
+                  // Lav query
+                  const queryJuli = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Juli" LIKE 'x%';`;
+                  queryData = await client.query(query1);
+                  // Giv svar tilbage til JavaScript
+                  res.json({
+                    "ok": true,
+                    "data": queryData.rows,
+                  })
+                } catch (error) {
+                  // Hvis query fejler, fanges det her.
+                  // Send fejlbesked tilbage til JavaScript
+                  res.json({
+                    "ok": false,
+                    "message": error.message,
+                  })
+                }
+              })
+
+              app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                try {
+                    // Lav query
+                    const queryaugust = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "August" LIKE 'x%';`;
+                    queryData = await client.query(query1);
+                    // Giv svar tilbage til JavaScript
+                    res.json({
+                      "ok": true,
+                      "data": queryData.rows,
+                    })
+                  } catch (error) {
+                    // Hvis query fejler, fanges det her.
+                    // Send fejlbesked tilbage til JavaScript
+                    res.json({
+                      "ok": false,
+                      "message": error.message,
+                    })
+                  }
+                })
+
+
+                app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                  try {
+                      // Lav query
+                      const queryseptember = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "September" LIKE 'x%';`;
+                      queryData = await client.query(query1);
+                      // Giv svar tilbage til JavaScript
+                      res.json({
+                        "ok": true,
+                        "data": queryData.rows,
+                      })
+                    } catch (error) {
+                      // Hvis query fejler, fanges det her.
+                      // Send fejlbesked tilbage til JavaScript
+                      res.json({
+                        "ok": false,
+                        "message": error.message,
+                      })
+                    }
+                  })
+
+
+
+                  app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                    try {
+                        // Lav query
+                        const queryoktober = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Oktober" LIKE 'x%';`;
+                        queryData = await client.query(query1);
+                        // Giv svar tilbage til JavaScript
+                        res.json({
+                          "ok": true,
+                          "data": queryData.rows,
+                        })
+                      } catch (error) {
+                        // Hvis query fejler, fanges det her.
+                        // Send fejlbesked tilbage til JavaScript
+                        res.json({
+                          "ok": false,
+                          "message": error.message,
+                        })
+                      }
+                    })
+
+                    app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                      try {
+                          // Lav query
+                          const querynovember = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "November" LIKE 'x%';`;
+                          queryData = await client.query(query1);
+                          // Giv svar tilbage til JavaScript
+                          res.json({
+                            "ok": true,
+                            "data": queryData.rows,
+                          })
+                        } catch (error) {
+                          // Hvis query fejler, fanges det her.
+                          // Send fejlbesked tilbage til JavaScript
+                          res.json({
+                            "ok": false,
+                            "message": error.message,
+                          })
+                        }
+                      })
+
+
+                      app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                        try {
+                            // Lav query
+                            const querydecember= `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "December" LIKE 'x%';`;
+                            queryData = await client.query(query1);
+                            // Giv svar tilbage til JavaScript
+                            res.json({
+                              "ok": true,
+                              "data": queryData.rows,
+                            })
+                          } catch (error) {
+                            // Hvis query fejler, fanges det her.
+                            // Send fejlbesked tilbage til JavaScript
+                            res.json({
+                              "ok": false,
+                              "message": error.message,
+                            })
+                          }
+                        })
 
 
 /*
