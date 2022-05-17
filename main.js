@@ -108,11 +108,12 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
 })
 
 
-app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+app.post("/api/frugt/:month/", async (req, res) => {
   try {
       // Lav query
-      const queryjanuar = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
-      queryData = await client.query(query1);
+      let month = req.params.month;
+      const query = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "${month}" LIKE 'x%';`;
+      queryData = await client.query(query);
       // Giv svar tilbage til JavaScript
       res.json({
         "ok": true,

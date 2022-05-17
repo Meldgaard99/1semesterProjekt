@@ -18,6 +18,7 @@
 
     </section>
 
+    <section> 
     <!-- Laver knapper for de 12 måneder -->
     <div class="måneder">
         <button name="btn.jan" id="klik1" style="width: 8%">Januar</button>
@@ -33,11 +34,13 @@
         <button name="btn.nov" id="klik11" style="width: 8%">November</button>
         <button name="btn.dec" id="klik12" style="width: 8%">December</button>
     </div>
+</section>
 
-    <div class = "oversigt">
-<p> hej</p>
 
-    </div>
+<div class = "oversigt">
+
+
+</div>
 
    
 
@@ -45,19 +48,12 @@
  
  
  
- // "#klik2", "#klik3", "#klik3", "#klik4", "#klik5", "#klik6", "#klik7", "#klik8", "#klik9", "#klik10", "#klik11", "#klik12"
-
-d3.select("#klik1")
+ // 
+d3.selectAll("#klik1", "#klik2", "#klik3", "#klik3", "#klik4", "#klik5", "#klik6", "#klik7", "#klik8", "#klik9", "#klik10", "#klik11", "#klik12"
+)
 .on("click",function(){
 
-        let seasonal = [{}];
-
-        d3.json("/api/frugt/: seasonalVegatabels1" {
-            method: "POST"
-        }).then(function (response) {
-            const data = response.data; // Hent data ud af response
-            seasonal = data
-            console.log(`Data from "getall": ${data}`);
+        function doStuff(seasonal) {
 
             for (let index1 = 0; index1 < seasonal.length; index1++) {
                 const style1 = `border:1px solid black`;
@@ -80,6 +76,23 @@ d3.select("#klik1")
         image1.width = 50
         image1.height = 50
         document.getElementById(`${tmpName}`).appendChild(image1);
+            
+        }
+
+        let seasonal = [{}];
+
+        d3.json("/api/frugt/januar" ,{
+            method: "POST"
+        }).then(function (response) {
+            const data = response.data; // Hent data ud af response
+            
+            
+            seasonal = data
+            
+            doStuff(seasonal);
+
+            console.log(`Data from "getall": ${data}`);
+        
 
         //document.getElementById(`${tmpName}`).innerText = `${tmpName}`
     
