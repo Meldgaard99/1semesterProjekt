@@ -107,13 +107,11 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
   }
 })
 
-
-app.post("/api/frugt/:month/", async (req, res) => {
+app.post("/api/frugt/seasonalVegatabels1", async (req, res) => {
   try {
       // Lav query
-      let month = req.params.month;
-      const query = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "${month}" LIKE 'x%';`;
-      queryData = await client.query(query);
+      const queryjanuar = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
+      queryData = await client.query(query1);
       // Giv svar tilbage til JavaScript
       res.json({
         "ok": true,
@@ -128,8 +126,8 @@ app.post("/api/frugt/:month/", async (req, res) => {
       })
     }
   })
-  
-  app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+
+  app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
     try {
         // Lav query
         const queryfebruar = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Februar" LIKE 'x%';`;
@@ -149,7 +147,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
       }
     })
   
-    app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+    app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
       try {
           // Lav query
           const querymarts = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Marts" LIKE 'x%';`;
@@ -170,7 +168,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
       })
     
 
-      app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+      app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
         try {
             // Lav query
             const queryapril = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "April" LIKE 'x%';`;
@@ -190,7 +188,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
           }
         })
    
-        app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+        app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
           try {
               // Lav query
               const querymaj = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Maj" LIKE 'x%';`;
@@ -210,7 +208,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
             }
           })
 
-          app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+          app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
             try {
                 // Lav query
                 const queryjuni = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Juni" LIKE 'x%';`;
@@ -230,7 +228,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
               }
             })
 
-            app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+            app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
               try {
                   // Lav query
                   const queryJuli = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Juli" LIKE 'x%';`;
@@ -250,7 +248,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
                 }
               })
 
-              app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+              app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
                 try {
                     // Lav query
                     const queryaugust = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "August" LIKE 'x%';`;
@@ -271,7 +269,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
                 })
 
 
-                app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
                   try {
                       // Lav query
                       const queryseptember = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "September" LIKE 'x%';`;
@@ -293,7 +291,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
 
 
 
-                  app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                  app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
                     try {
                         // Lav query
                         const queryoktober = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "Oktober" LIKE 'x%';`;
@@ -313,7 +311,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
                       }
                     })
 
-                    app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                    app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
                       try {
                           // Lav query
                           const querynovember = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "November" LIKE 'x%';`;
@@ -334,7 +332,7 @@ app.post("/api/frugt/:month/", async (req, res) => {
                       })
 
 
-                      app.post("/api/frugt/: seasonalVegatabels", async (req, res) => {
+                      app.post("/api/frugt/seasonalVegatabels", async (req, res) => {
                         try {
                             // Lav query
                             const querydecember= `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "December" LIKE 'x%';`;
@@ -357,6 +355,31 @@ app.post("/api/frugt/:month/", async (req, res) => {
 
 /*
 Husk at outcomment Boes!
+
+/* app.post("/api/frugt/:month/", async (req, res) => {
+  try {
+      // Lav query
+      let month = req.params.month;
+      const query = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "${month}" LIKE 'x%';`;
+      queryData = await client.query(query);
+      // Giv svar tilbage til JavaScript
+      res.json({
+        "ok": true,
+        "data": queryData.rows,
+      })
+    } catch (error) {
+      // Hvis query fejler, fanges det her.
+      // Send fejlbesked tilbage til JavaScript
+      res.json({
+        "ok": false,
+        "message": error.message,
+      })
+    }
+  })
+  */
+
+
+
 
 
 /*
