@@ -135,7 +135,7 @@
 
 
         // Width og height på selve søjlerne 
-        const w = 250;
+        const w = 550;
         const h = 500;
         const barPadding = 1; // Bruges til at lave afstand imellem søjler
         const maxValue = 1;
@@ -167,13 +167,34 @@
       // Output-området er fra 0 til 'w'
       .range([0, w])
       // Vi sætter padding imellem søjlerne også
-      .paddingInner(0.10);
+      .paddingInner(0.15);
 
     // Traditionel skaleringsfunktion for 'y'.
     const yScale = d3.scaleLinear()
       .domain([0, maxValue])
       .range([0, h]);
 
+
+
+      const xAxis = d3.axisBottom().scale(xScale);
+  
+          
+// På SVG laver vi en <g>
+// <g> er en container der indeholder andre SVG-elementer.
+svg.append("g") 
+  // "transform" er en flytning af hele <g>
+  // Eller på dansk: "parallelforskydning".
+  // Den flyttes ned i bunden af diagrammet
+  .attr("transform", "translate(0," +  (525 - bottomPadding) + ")")
+  // "call" bruger akse-funktionen til at lave selve aksen.
+  .call(d3.axisBottom(xScale));
+
+
+
+ 
+
+
+      
             /*
         // Definerer X-aksen ticks er hvor meget der skal vises på stregen, lige nu kommer der til at stå 16 ting 
         let xAxis = d3.axisBottom()
