@@ -95,7 +95,7 @@
                         }).then(function (response) {
                             const data = response.data; // Hent data ud af response
                             seasonal = data
-                            console.log(`Data from "seasonalVegatabels2": ${response}`);
+                            console.log(`Data from "seasonalVegatabels2": ${response.data[0].Groentsag}`);
 
                             for (let index1 = 0; index1 < seasonal.length; index1++) {
                                 const style1 = `border:1px solid black`;
