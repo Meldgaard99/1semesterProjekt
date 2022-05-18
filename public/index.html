@@ -169,19 +169,28 @@
             .domain([0, maxValue])
             .range([0, h])
             
-            const xAxis = d3.axisBottom().scale(xScale);
+                  const xAxis = d3.axisBottom().scale(xScale);
 
 
-// På SVG laver vi en <g>
-// <g> er en container der indeholder andre SVG-elementer.
-svg.append("g") 
-  // "transform" er en flytning af hele <g>
-  // Eller på dansk: "parallelforskydning".
-  // Den flyttes ned i bunden af diagrammet
-  .attr("transform", "translate(0," +  (525 - bottomPadding) + ")")
-  // "call" bruger akse-funktionen til at lave selve aksen.
-  .call(d3.axisBottom(xScale));
+ // På SVG laver vi en <g>
+ // <g> er en container der indeholder andre SVG-elementer.
+ svg.append("g") 
+   // "transform" er en flytning af hele <g>
+   // Eller på dansk: "parallelforskydning".
+   // Den flyttes ned i bunden af diagrammet
+   .attr("transform", "translate(0," +  (525 - bottomPadding) + ")")
+   // "call" bruger akse-funktionen til at lave selve aksen.
+   .call(d3.axisBottom(xScale));
 
+svg
+   .select("g#y-axis")
+    .selectAll("g.tick")
+    .append("line")
+    .attr("x1", 0)
+    .attr("y1", 0)
+    .attr("x2", w)
+    .attr("y2", 0)
+    .style("opacity", 0.3);
         /*
     // Definerer X-aksen ticks er hvor meget der skal vises på stregen, lige nu kommer der til at stå 16 ting 
     let xAxis = d3.axisBottom()
