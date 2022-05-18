@@ -85,7 +85,7 @@
                         )
                     };
 
-  
+
 // Her køres koden for knappen februar - Viser alle grøntsager i sæson
 // Laver en function for februar - onlick
         function februar() {
@@ -99,13 +99,13 @@
 
                             for (let index1 = 0; index1 < seasonal.length; index1++) {
                                 const style1 = `border:1px solid black`;
-                                const tmpName = seasonal[index1].grøntsag;
+                                const tmpName = seasonal[index1].Groentsag;
                                 const button = d3.select(".kalender")
                                     .append("button")
                                     .attr("style", style1)
                                     .attr("id", tmpName)
                                     .attr("class", "fruit-card-btn")
-                                    .attr("background", `url([grøntsager-realistisk/${tmpName}.png])`)
+                                    .attr("background", `url("grøntsager-realistisk/${tmpName}.png")`)
                                     .on("click", function () {
                                         console.log(`${tmpName} clicked`)
                                     });
