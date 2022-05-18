@@ -22,16 +22,16 @@
         <div class="måneder">
             <button name="btn.jan" onclick="januar()" id="klik1" style="width: 8%">Januar</button>
             <button name="btn.feb" onclick="februar()" id="klik2" style="width: 8%">Februar</button>
-            <button name="btn.mar" id="klik3" style="width: 8%">Marts</button>
-            <button name="btn.apr" id="klik4" style="width: 8%">April</button>
-            <button name="btn.maj" id="klik5" style="width: 8%">Maj</button>
-            <button name="btn.jun" id="klik6" style="width: 8%">Juni</button>
-            <button name="btn.jul" id="klik7" style="width: 8%">Juli</button>
-            <button name="btn.aug" id="klik8" style="width: 8%">August</button>
-            <button name="btn.sep" id="klik9" style="width: 8%">September</button>
-            <button name="btn.okt" id="klik10" style="width: 8%">Oktober</button>
-            <button name="btn.nov" id="klik11" style="width: 8%">November</button>
-            <button name="btn.dec" id="klik12" style="width: 8%">December</button>
+            <button name="btn.mar" onclick="marts()" id="klik3" style="width: 8%">Marts</button>
+            <button name="btn.apr" onclick="april()" id="klik4" style="width: 8%">April</button>
+            <button name="btn.maj" onclick="maj()"id="klik5" style="width: 8%">Maj</button>
+            <button name="btn.jun" onclick="juni()"id="klik6" style="width: 8%">Juni</button>
+            <button name="btn.jul" onclick="juli()"id="klik7" style="width: 8%">Juli</button>
+            <button name="btn.aug" onclick="august()"id="klik8" style="width: 8%">August</button>
+            <button name="btn.sep" onclick="september()"id="klik9" style="width: 8%">September</button>
+            <button name="btn.okt" onclick="oktober()"id="klik10" style="width: 8%">Oktober</button>
+            <button name="btn.nov" onclick="november()"id="klik11" style="width: 8%">November</button>
+            <button name="btn.dec" onclick="devember()"id="klik12" style="width: 8%">December</button>
         </div>
 
     </section>
@@ -49,11 +49,46 @@
 
     <script type="text/javascript">
 
-        //test
 
         let seasonal = [{}];
 
         console.log("test")
+
+// Her køres koden for knappen januar - Viser alle grøntsager i sæson
+
+        function januar() {
+                        console.log("januar klik")
+                        d3.json("/api/frugt/seasonalVegatabels1", {
+                            method: "GET"
+                        }).then(function (response) {
+                            const data = response.data; // Hent data ud af response
+                            seasonal = data
+                            console.log(`Data from "seasonalVegatabels1": ${response.data[0].Groentsag}`);
+
+                            for (let index1 = 0; index1 < seasonal.length; index1++) {
+                                const style1 = `border:1px solid black`;
+                                const tmpName = seasonal[index1].Groentsag;
+                                console.log(tmpName)
+                                const button = d3.select(".kalender")
+                                    .append("button")
+                                    .attr("style", style1)
+                                    .attr("id", tmpName)
+                                    .attr("class", "fruit-card-btn")
+                                    .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
+                                    .on("click", function () {
+                                        console.log(`${tmpName} clicked`)
+                                    });
+                                    /* d3.select("#"+tmpName)
+                                    .append("img")
+                                    .attr("src",`/grøntsager-realistisk/${tmpName}.png`) */
+
+                            }
+                        }
+                        )
+                    };
+
+        
+// Her køres koden for knappen februar - Viser alle grøntsager i sæson
 
         function februar() {
                         console.log("februar klik")
@@ -86,41 +121,10 @@
                     image1.height = 50
                     document.getElementById(`${tmpName}`).appendChild(image1);
 
-//document.getElementById(`${tmpName}`).innerText = `${tmpName}`
+
+                    //document.getElementById(`${tmpName}`).innerText = `${tmpName}`
 
 
-function januar() {
-                        console.log("januar klik")
-                        d3.json("/api/frugt/seasonalVegatabels1", {
-                            method: "GET"
-                        }).then(function (response) {
-                            const data = response.data; // Hent data ud af response
-                            seasonal = data
-                            console.log(`Data from "seasonalVegatabels1": ${response.data[0].Groentsag}`);
-
-                            for (let index1 = 0; index1 < seasonal.length; index1++) {
-                                const style1 = `border:1px solid black`;
-                                const tmpName = seasonal[index1].Groentsag;
-                                console.log(tmpName)
-                                const button = d3.select(".kalender")
-                                    .append("button")
-                                    .attr("style", style1)
-                                    .attr("id", tmpName)
-                                    .attr("class", "fruit-card-btn")
-                                    .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
-                                    .on("click", function () {
-                                        console.log(`${tmpName} clicked`)
-                                    });
-                                    /* d3.select("#"+tmpName)
-                                    .append("img")
-                                    .attr("src",`/grøntsager-realistisk/${tmpName}.png`) */
-
-                            }
-                        }
-                        )
-                    };
-
-        
            /*
                     
                         function februar() {
