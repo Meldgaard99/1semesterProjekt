@@ -107,7 +107,7 @@ app.post("/api/frugt/getco2indud", async (req, res) => {
   }
 })
 
-app.post("/api/frugt/seasonalVegatabels1", async (req, res) => {
+app.get("/api/frugt/seasonalVegatabels1", async (req, res) => {
   try {
       // Lav query
       const queryjanuar = `SELECT "Groentsag" FROM public."seasonalVegatabels" where "Januar" LIKE 'x%';`;
@@ -130,7 +130,7 @@ app.post("/api/frugt/seasonalVegatabels1", async (req, res) => {
     }
   })
 
-  app.post("/api/frugt/seasonalVegatabels2", async (req, res) => {
+  app.get("/api/frugt/seasonalVegatabels2", async (req, res) => {
     try {
         // Lav query
         const queryfebruar = `SELECT "Groentsag" FROM public."seasonalVegatabels" where "Februar" LIKE 'x%';`;
