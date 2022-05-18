@@ -43,6 +43,14 @@
 */
 
 /*------------------- Der bliver begyndt på første sektion eller første data viz---------------------------*/ 
+.splits {
+    height: 1000px;
+    position: static;
+    z-index: +1;
+    /*top: 0;*/
+    overflow-x: hidden;
+    padding-top: 20px;
+}
 /* Split the screen in half */
 .split {
     height: 1000px;
@@ -272,6 +280,24 @@ footer{
     justify-content: center;
     margin: 1rem 0 3rem 0;
     color: #00A85F;
+}
+
+
+
+
+
+
+
+
+
+
+#index2Content{
+    height: 400px;
+    position: static;
+    z-index: +1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
 
 
