@@ -55,6 +55,7 @@
         console.log("test")
 
 // Her køres koden for knappen januar - Viser alle grøntsager i sæson
+// Laver en function for januar - onlick
 
         function januar() {
                         console.log("januar klik")
@@ -78,18 +79,15 @@
                                     .on("click", function () {
                                         console.log(`${tmpName} clicked`)
                                     });
-                                    /* d3.select("#"+tmpName)
-                                    .append("img")
-                                    .attr("src",`/grøntsager-realistisk/${tmpName}.png`) */
-
+                                    
                             }
                         }
                         )
                     };
 
-        
+  
 // Her køres koden for knappen februar - Viser alle grøntsager i sæson
-
+// Laver en function for februar - onlick
         function februar() {
                         console.log("februar klik")
                         d3.json("/api/frugt/seasonalVegatabels2", {
@@ -115,49 +113,15 @@
                         }
                         )
                     };
-                    const image1 = document.createElement("img");
-                    image1.src = `grøntsager-realistisk/${tmpName}.png`;
-                    image1.width = 50
-                    image1.height = 50
-                    document.getElementById(`${tmpName}`).appendChild(image1);
-
-
-                    //document.getElementById(`${tmpName}`).innerText = `${tmpName}`
-
-
-           /*
                     
-                        function februar() {
-                        console.log("februar klik")
-                        d3.json("/api/frugt/seasonalVegatabels2", {
-                            method: "POST"
-                        }).then(function (response) {
-                            const data = response.data; // Hent data ud af response
-                            allFruits = data
-                            console.log(`Data from "seasonalVegatabels2": ${data}`);
-
-                            for (let index1 = 0; index1 < seasonal.length; index1++) {
-                                const style1 = `border:1px solid black`;
-                                const tmpName = seasonal[index1].grøntsag;
-                                const button = d3.select(".kalender")
-                                    .append("button")
-                                    .attr("style", style1)
-                                    .attr("id", tmpName)
-                                    .attr("class", "fruit-card-btn")
-                                    .attr("background", `url([grøntsager-realistisk/${tmpName}.png])`)
-                                    .on("click", function () {
-                                        console.log(`${tmpName} clicked`)
-                                    });
-                            }
-                        }
-                        )
-                    };
+                    // Koden der indsætter billede til den tilsvarende grøntsag - når der køres loop.
                     const image1 = document.createElement("img");
                     image1.src = `grøntsager-realistisk/${tmpName}.png`;
                     image1.width = 50
                     image1.height = 50
                     document.getElementById(`${tmpName}`).appendChild(image1);
-*/
+
+
     </script>
 
 </body>
