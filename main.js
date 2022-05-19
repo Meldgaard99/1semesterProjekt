@@ -338,7 +338,7 @@ app.get("/api/frugt/seasonalVegatabels12", async (req, res) => {
   try {
     // Lav query
     const querydecember = `SELECT "Groentsag" FROM public."seasonalVegatabels" where "December" LIKE 'x%';`;
-    queryData = await client.query(query1);
+    queryData = await client.query(querydecember);
     // Giv svar tilbage til JavaScript
     res.json({
       "ok": true,

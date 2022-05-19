@@ -11,7 +11,7 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    text-align: center;
+    text-align:justify;
     margin: auto;
     padding: 0;
       
@@ -154,7 +154,7 @@ div.fruitcontainer {
 
 
 .fruit-img {
-    max-width: 75px;
+    max-width: 30px;
     color: #000;
 
 
@@ -209,7 +209,7 @@ html {
 
 body {
     height: 500vh;
-    background: #eef8ff;
+    background: #f0f0f0;
     
 }
 
@@ -292,7 +292,7 @@ footer{
 
 
 #index2Content{
-    height: 400px;
+    height: 1000px;
     position: static;
     z-index: +1;
     top: 0;
