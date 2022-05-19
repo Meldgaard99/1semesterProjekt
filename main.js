@@ -63,9 +63,6 @@ app.use(morgan("combined"));
 
 app.post("/api/frugt/getall", async (req, res) => {
   try {
-
-
-
     // Lav query
     const query1 = 'SELECT grøntsag FROM public.co2indud';
 
@@ -254,7 +251,7 @@ app.get("/api/frugt/seasonalVegatabels7", async (req, res) => {
 app.get("/api/frugt/seasonalVegatabels8", async (req, res) => {
   try {
     // Lav query
-    const queryaugust = `SELECT "Grøntsag" FROM public."seasonalVegatabels" where "August" LIKE 'x%';`;
+    const queryaugust = `SELECT "Groentsag" FROM public."seasonalVegatabels" where "August" LIKE 'x%';`;
     queryData = await client.query(queryaugust);
     // Giv svar tilbage til JavaScript
     res.json({
@@ -359,6 +356,7 @@ app.get("/api/frugt/seasonalVegatabels12", async (req, res) => {
 Husk at outcomment Boes!
 */
 
+//What det er vildt lavet !!!
 app.post("/api/frugt/:month/", async (req, res) => {
   try {
     // Lav query
