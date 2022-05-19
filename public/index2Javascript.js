@@ -1,6 +1,6 @@
 
 
-d3.select("#Januar-btn")
+d3.select("#Januar")
 .on("click", function () {
     seasonal = [{}];
     console.log("Januar button clicked");
