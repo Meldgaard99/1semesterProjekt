@@ -3,17 +3,17 @@
 d3.select("#Januar")
     .on("click", function () {
         console.log("Januar button clicked")
-        d3.json(`/api/frugt/getco2indud`, {
-            method: "POST"
+        d3.json(`api/frugt/seasonalVegatabels1`, {
+            method: "GET"
         }).then(function (response) {
 
             const data = response.data; // Hent data ud af response
             seasonal = data
-            console.log(`Data from "seasonalVegatabels1": ${response.data[0].grøntsag}`);
+            console.log(`Data from "seasonalVegatabels1": ${response.data[0].Groentsag}`);
 
             for (let index1 = 0; index1 < seasonal.length; index1++) {
                 const style1 = `border:1px solid black`;
-                const tmpName = seasonal[index1].grøntsag;
+                const tmpName = seasonal[index1].Groentsag;
                 const button = d3.select(".kalender")
                     .append("button")
                     .attr("style", style1)
