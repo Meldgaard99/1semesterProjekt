@@ -2,7 +2,9 @@
 
 d3.select("#Januar")
 .on("click", function () {
-    console.log("Januar button clicked")
+    seasonal = [{}];
+    console.log("Januar button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels1`, {
         method: "GET"
     }).then(function (response) {
@@ -17,8 +19,8 @@ d3.select("#Januar")
             const button = d3.select(".kalender")
                 .append("button")
                 .attr("style", style1)
-                .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("id", `${tmpName}Januar`)
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -29,7 +31,7 @@ d3.select("#Januar")
             image1.src = `grøntsager-realistisk/${tmpName}.png`;
             image1.width = 25
             image1.height = 25
-            document.getElementById(`${tmpName}1`).appendChild(image1);
+            document.getElementById(`${tmpName}Januar`).appendChild(image1);
         }
 
 
@@ -48,7 +50,9 @@ let seasonal = [{}];
 
 d3.select("#Februar")
 .on("click", function () {
-    console.log("Februar button clicked")
+    seasonal = [{}];
+    console.log("Februar button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels2`, {
         method: "GET"
     }).then(function (response) {
@@ -63,8 +67,8 @@ d3.select("#Februar")
             const button = d3.select(".kalender")
                 .append("button")
                 .attr("style", style1)
-                .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("id", `${tmpName}Februar`)
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -75,7 +79,7 @@ d3.select("#Februar")
             image1.src = `grøntsager-realistisk/${tmpName}.png`;
             image1.width = 35
             image1.height = 35
-            document.getElementById(`${tmpName}1`).appendChild(image1);
+            document.getElementById(`${tmpName}Februar`).appendChild(image1);
         }
 
 
@@ -89,7 +93,9 @@ d3.select("#Februar")
 
 d3.select("#Marts")
 .on("click", function () {
-    console.log("Marts button clicked")
+    seasonal = [{}];
+    console.log("Marts button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels3`, {
         method: "GET"
     }).then(function (response) {
@@ -104,8 +110,8 @@ d3.select("#Marts")
             const button = d3.select(".kalender")
                 .append("button")
                 .attr("style", style1)
-                .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("id", `${tmpName}Marts`)
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -116,7 +122,7 @@ d3.select("#Marts")
             image1.src = `grøntsager-realistisk/${tmpName}.png`;
             image1.width = 50
             image1.height = 50
-            document.getElementById(`${tmpName}1`).appendChild(image1);
+            document.getElementById(`${tmpName}Marts`).appendChild(image1);
         }
 
 
@@ -131,7 +137,8 @@ d3.select("#Marts")
 
 d3.select("#April")
 .on("click", function () {
-    console.log("April button clicked")
+    console.log("April button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels4`, {
         method: "GET"
     }).then(function (response) {
@@ -146,8 +153,8 @@ d3.select("#April")
             const button = d3.select(".kalender")
                 .append("button")
                 .attr("style", style1)
-                .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("id", `${tmpName}April`)
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -158,7 +165,7 @@ d3.select("#April")
             image1.src = `grøntsager-realistisk/${tmpName}.png`;
             image1.width = 50
             image1.height = 50
-            document.getElementById(`${tmpName}1`).appendChild(image1);
+            document.getElementById(`${tmpName}April`).appendChild(image1);
         }
 
 
@@ -172,7 +179,8 @@ d3.select("#April")
 
 d3.select("#Maj")
 .on("click", function () {
-    console.log("Maj button clicked")
+    console.log("Maj button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels5`, {
         method: "GET"
     }).then(function (response) {
@@ -187,8 +195,8 @@ d3.select("#Maj")
             const button = d3.select(".kalender")
                 .append("button")
                 .attr("style", style1)
-                .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("id", `${tmpName}Maj`)
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -199,7 +207,7 @@ d3.select("#Maj")
             image1.src = `grøntsager-realistisk/${tmpName}.png`;
             image1.width = 50
             image1.height = 50
-            document.getElementById(`${tmpName}1`).appendChild(image1);
+            document.getElementById(`${tmpName}Maj`).appendChild(image1);
         }
 
 
@@ -212,11 +220,11 @@ d3.select("#Maj")
 
 d3.select("#Juni")
 .on("click", function () {
-    console.log("Juni button clicked")
+    console.log("Juni button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels6`, {
         method: "GET"
     }).then(function (response) {
-
         const data = response.data; // Hent data ud af response
         seasonal = data
         console.log(`Data from "seasonalVegatabels6": ${response.data[0].Groentsag}`);
@@ -227,8 +235,8 @@ d3.select("#Juni")
             const button = d3.select(".kalender")
                 .append("button")
                 .attr("style", style1)
-                .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("id", `${tmpName}Juni`)
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -239,7 +247,7 @@ d3.select("#Juni")
             image1.src = `grøntsager-realistisk/${tmpName}.png`;
             image1.width = 50
             image1.height = 50
-            document.getElementById(`${tmpName}1`).appendChild(image1);
+            document.getElementById(`${tmpName}Juni`).appendChild(image1);
         }
 
 
@@ -252,7 +260,8 @@ d3.select("#Juni")
 
 d3.select("#Juli")
 .on("click", function () {
-    console.log("Juli button clicked")
+    console.log("Juli button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels7`, {
         method: "GET"
     }).then(function (response) {
@@ -268,7 +277,7 @@ d3.select("#Juli")
                 .append("button")
                 .attr("style", style1)
                 .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -293,7 +302,8 @@ d3.select("#Juli")
 
 d3.select("#August")
 .on("click", function () {
-    console.log("August button clicked")
+    console.log("August button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels8`, {
         method: "GET"
     }).then(function (response) {
@@ -309,7 +319,7 @@ d3.select("#August")
                 .append("button")
                 .attr("style", style1)
                 .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -333,7 +343,8 @@ d3.select("#August")
 
 d3.select("#September")
 .on("click", function () {
-    console.log("September button clicked")
+    console.log("September button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels9`, {
         method: "GET"
     }).then(function (response) {
@@ -349,7 +360,7 @@ d3.select("#September")
                 .append("button")
                 .attr("style", style1)
                 .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -374,7 +385,8 @@ d3.select("#September")
 
 d3.select("#Oktober")
 .on("click", function () {
-    console.log("Oktober button clicked")
+    console.log("Oktober button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels10`, {
         method: "GET"
     }).then(function (response) {
@@ -390,7 +402,7 @@ d3.select("#Oktober")
                 .append("button")
                 .attr("style", style1)
                 .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -414,7 +426,8 @@ d3.select("#Oktober")
 
 d3.select("#November")
 .on("click", function () {
-    console.log("November button clicked")
+    console.log("November button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels11`, {
         method: "GET"
     }).then(function (response) {
@@ -430,7 +443,7 @@ d3.select("#November")
                 .append("button")
                 .attr("style", style1)
                 .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
@@ -456,7 +469,8 @@ d3.select("#November")
 
 d3.select("#December")
 .on("click", function () {
-    console.log("December button clicked")
+    console.log("December button clicked");
+    d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels12`, {
         method: "GET"
     }).then(function (response) {
@@ -472,7 +486,7 @@ d3.select("#December")
                 .append("button")
                 .attr("style", style1)
                 .attr("id", `${tmpName}1`)
-                .attr("class", "fruit-card-btn")
+                .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
                     console.log(`${tmpName} clicked`)
