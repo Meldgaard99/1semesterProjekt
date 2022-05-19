@@ -28,12 +28,12 @@
 /* Styling af div */
 .måneder {
     border: 1px solid rgb(97, 150, 96); 
-    width: 96%;
     color: white; 
     padding: 10px 24px;
     float: left;
-    position: absolute;
     margin: auto;
+    position: static;
+    width: 100%;
 
   }
 
@@ -98,4 +98,12 @@
 
 
 
+}
+
+
+
+.kalender {
+height:auto;
+width: auto;
+flex:content;
 }
