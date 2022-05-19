@@ -300,4 +300,76 @@ footer{
     padding-top: 20px;
 }
 
+.btn-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin: 35px -5px 0 -5px;
+  }
+  
+  .btn-box a {
+    width: 175px;
+    margin: 5px;
+    text-align: center;
+  }
+  
+  .btn-box .btn-1 {
+    display: inline-block;
+    padding: 10px 0;
+    background-color: #49922d;
+    color: #ffffff;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border: 1px solid #49922d;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  
+  .btn-box .btn-1:hover {
+    background-color: transparent;
+    color: #49922d;
+  }
+  
+  .btn-box .btn-2 {
+    display: inline-block;
+    padding: 10px 0;
+    background-color: #363636;
+    color: #ffffff;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border: 1px solid #363636;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  
+  .btn-box .btn-2:hover {
+    background-color: transparent;
+    color: #363636;
+  }
+ 
+  
 
+  
+ 
+
+
+
+  .nav-link {
+    padding: 10px 15px;
+    color: #060606;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .nav-link {
+    color: #49922d;
+  }
+  
+  a,
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+  
