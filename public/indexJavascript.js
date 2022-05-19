@@ -142,8 +142,6 @@ svg.append("text")
 .attr("y", h - 200)
 .text("Grøntsager/frugter")
 
-
-
 // Definerer y-aksen
 let yAxis = d3.axisLeft()
 .scale(yScale)
@@ -184,11 +182,6 @@ svg.append("text")
 
 
 */
-
-
-
-
-
 
 
 // Vælg elementet med id "klik_tilføj" og tilføj en handling		
