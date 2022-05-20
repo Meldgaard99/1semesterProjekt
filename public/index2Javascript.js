@@ -224,7 +224,7 @@ d3.select("#Juni")
     console.log("Juni button clicked");
     d3.selectAll(".calenderButtons").remove();
     d3.json(`api/frugt/seasonalVegatabels6`, {
-        method: "GET"
+        method: "POST"
     }).then(function (response) {
         const data = response.data; // Hent data ud af response
         seasonal = data
