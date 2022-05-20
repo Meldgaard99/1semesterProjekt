@@ -91,7 +91,7 @@ button:hover {
 
 .fruit-card-btn>img {
   height: 80%;
-  width: 9q0%;
+  width: 90%;
   display: block;
 
 }
@@ -100,7 +100,7 @@ button:hover {
   color: #fff;
   box-shadow: inset 200px 0 0 0 #95a97b;
 }
-/* til cirklene ved overskrift ved barchart
+
 .dot1 {
   margin-left: 35%;
   height: 25px;
@@ -120,7 +120,7 @@ button:hover {
   display: inline-block;
 }
 
-*/ 
+
 
 
 #overskrift3{
