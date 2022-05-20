@@ -8,9 +8,6 @@ for (let month = 0; month < 12; month++) {
             console.log(`${allMonths[month]} button clicked`);
             d3.selectAll(".calenderButtons").remove();
 
-
-
-
             for (let q = 0; q < 12; q++) {
                 document.getElementById(`${allMonths[q]}`).style.background='white';
             }
