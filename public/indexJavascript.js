@@ -1,5 +1,5 @@
 // Selve datasættet
-let dataset = [];
+let dataset = [["Default", parseFloat(0), "white"]];
 
 function loadHTML() {
     fetch('index2.html')
@@ -37,9 +37,9 @@ d3.json("/api/frugt/getall", {
                         console.log(data)
                         for (let q = 0; q < data.length; q++) {
                             if (data[q].grøntsag == tmpName) {
-                                dataset.push([data[q].grøntsag, parseFloat(data[q].ind), "#5a8f57"])
-                                dataset.push([data[q].grøntsag, parseFloat(data[q].ud), "#a6b38a"])
-                                dataset.push([data[q].grøntsag, parseFloat(0), "white"])
+                                dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])
+                                dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])
+                                dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
                             }
                         }
                         updateSelectionAdd();
@@ -48,7 +48,8 @@ d3.json("/api/frugt/getall", {
                 } else {
                     let foodFound = false;
                     let index = -1;
-                    for (let q = 0; q < dataset.length; q += 3) {
+                    for (let q = 1; q < dataset.length; q += 3) {
+                        console.log(`Loop : ${dataset[q][0]}`)
                         if (dataset[q][0] == `${tmpName}0`) {
                             foodFound = true;
                             index = q;
@@ -73,8 +74,8 @@ d3.json("/api/frugt/getall", {
                             console.log(data)
                             for (let q = 0; q < data.length; q++) {
                                 if (data[q].grøntsag == tmpName) {
-                                    dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ind), "#5a8f57"])
-                                    dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ud), "#a6b38a"])
+                                    dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ind), "#a6b38a"])
+                                    dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ud), "#5a8f57"])
                                     dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
                                 }
                             }
@@ -132,7 +133,7 @@ const svg = d3.select("#leftSide")
 // Width og height på selve søjlerne 
 const w = document.getElementById('svgBarchart').clientWidth;
 const h = document.getElementById('svgBarchart').clientHeight;
-const maxValue = 100;
+const maxValue = 3;
 
 // Scale-funktioner
 const xScale = d3.scaleBand()
@@ -180,6 +181,9 @@ function updateSelectionAdd() {
         // Og animationen herunder vedrører alle punkter
         .transition()
         .duration(1500)
+        .attr("name", function(d){
+            return d[0]
+        })
         .attr("x", function (d, i) {
             return xScale(i);
         })
