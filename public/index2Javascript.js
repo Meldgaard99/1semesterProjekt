@@ -46,8 +46,8 @@ for (let month = 0; month < 12; month++) {
                     // Koden der indsætter billede til den tilsvarende grøntsag - når der køres loop.
                     const image1 = document.createElement("img");
                     image1.src = `grøntsager-realistisk/${tmpName}.png`;
-                    image1.width = 25
-                    image1.height = 25
+                    image1.width = 10
+                    image1.height = 10
                     document.getElementById(buttonId).appendChild(image1);
                     const labelTag = document.createElement("a");
                     labelTag.innerText = `${tmpName}`
