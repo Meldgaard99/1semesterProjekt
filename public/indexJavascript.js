@@ -214,7 +214,64 @@ function updateSelectionRemoval() {
         .attr("fill", "#00000000") // Animere til usynlighed
         .attr("x", w + 200) // Flytter søjlen ud til højre
         .remove(); // 'rect' slettes
+
+
+
 }
+
+
+
+
+svg.selectAll("text.label") // Alt tekst med class 'label'
+      .data(dataset, function (d) {
+        return d[2]; // Vælge key på hvert punkt
+      })
+      .transition() // Lav en transition
+      .duration(2000) // Lad den køre i 2 sekunder
+
+      .attr("x", function (d, i) {
+        console.log(i * (w / dataset.length));
+        return i * (w / dataset.length) + 100;
+      }) // Søjlens højde plus en konstant
+          
+
+
+    
+      
+      
+    
+
+    svg.selectAll("text.label") // Alt tekst med class 'label'
+      .data(dataset)
+      .enter()
+      .append("text")
+      .text(function (d) { // Selve værdien bruges som label
+        return (d[1]);
+      }) // x svarer til søjlens x, plus en konstant
+      .attr("x", function (d, i) {
+        console.log(i * (w / dataset.length));
+        return i * (w / dataset.length) + 100;
+      }) // Søjlens højde plus en konstant
+      .attr("y", function (d) {
+        console.log((d));
+        return h - d[1];
+
+
+
+
+
+
+
+      })
+      .attr("class", "label") // Husk class på nye labels
+
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "11px")
+      .attr("id", "tooltip") 
+      .attr("fill", function (d) {
+        return (d[4]);
+      });
+
 
 
 

@@ -47,13 +47,13 @@ button {
 
 }
 
+
+
 button:hover {
-  background-color: rgb(111, 152, 98);
+color: rgb(111, 152, 98);
   /* moseGreen */
 
 }
-
-
 
 .fruit-card-btn {
 
