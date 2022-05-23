@@ -39,7 +39,10 @@ d3.json("/api/frugt/getall", {
                 if (foodFound == true) {
                     dataset.splice(index, 3)
                     updateSelectionRemoval()
-                } else {
+                    document.getElementById(`${tmpName}`).style.backgroundColor = "#e8e6e0"
+                 
+                }
+                else {
                     d3.json(`/api/frugt/getco2indud`, {
                         method: "POST"
                     }).then(function (response) {
@@ -49,10 +52,12 @@ d3.json("/api/frugt/getall", {
                                 dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])
                                 dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])
                                 dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
+                                
                             }
                         }
                         updateSelectionAdd();
                         console.log(dataset)
+                        document.getElementById(`${tmpName}`).style.backgroundColor = "rgb(111, 152, 98)"
                     })
                 }
             })
@@ -87,8 +92,8 @@ const svg = d3.select("#leftSide")
 
 // Width og height på selve søjlerne 
 const w = document.getElementById('svgBarchart').clientWidth;
-const h = document.getElementById('svgBarchart').clientHeight;
-let maxValue = 2.5;
+const h = document.getElementById('svgBarchart').clientHeight - 50;
+let maxValue = 2.2;
 
 
 
@@ -104,35 +109,59 @@ const yScale = d3.scaleLinear()
 
 
 
-
-
-
 // Vælg elementet med id "klik_tilføj" og tilføj en handling		
 function updateSelectionAdd() {
-
+    let fruitNamesLabel = [];
+    for (let index = 0;index<dataset.length;index++){
+        if (dataset[index][0].slice(-1) == "0"){
+            fruitNamesLabel.push(dataset[index])
+        }
+    }
+    console.log(`Test af fruit names : ${fruitNamesLabel}`)
     // Opdater scale-funktioner
     xScale.domain(d3.range(dataset.length));
 
-    // select 'rects' og tilføj ny data
+    // select 'texts' og tilføj ny data
     const updateSelectionText = svg.selectAll("text")
-        .data(dataset, function (d) {
+        .data(fruitNamesLabel, function (d) {
             return d[0];
         });
+
+    updateSelectionText.enter()
+        // Alt efter 'enter()' vedrører kun det nye datapunkt
+        .append("text")
+        .attr("x", w)
+        .attr("y", function (d) {
+            return h - yScale(d[1] - 10);
+        })
+        .attr("width", 100)
+        .attr("height", 50)
+        .attr("fill", "Red")
+        .text(function (d) { return d[0]; })
+        // Her flettes det nye punkt sammen med de gamle punkter
+        .merge(updateSelectionText)
+        // Og animationen herunder vedrører alle punkter
+        .transition()
+        .duration(750)
+        .attr("id", function (d) {
+            return d[0]
+        })
+        .attr("x", function (d, i) {
+            return xScale(i);
+        })
+        .attr("y", function (d) {
+            return h - yScale(d[1]);
+        })
+        .attr("width", 100)
+        .attr("height", 50);
+
+
 
     // select 'rects' og tilføj ny data
     const updateSelection = svg.selectAll("rect")
         .data(dataset, function (d) {
             return d[0];
         });
-
-    updateSelectionText.enter()
-        .append("text")
-        .attr("x", w)
-        .attr("y", function (d) {
-            return h - yScale(d[1]);
-        })
-        .attr("text", "Broccoli")
-
     // 'enter' bruges til at animere det nye data
     updateSelection.enter()
         // Alt efter 'enter()' vedrører kun det nye datapunkt
@@ -180,6 +209,40 @@ function updateSelectionRemoval() {
             return d[0];
         });
 
+        // select alle 'rects' og tilføj ny data
+    const updateSelectionText = svg.selectAll("text")
+    .data(dataset, function (d) {
+        return d[0];
+    });
+
+    // Alle søjler animeres fint.
+    // De har alle fået nye værdier fordi der er fjernet et punkt
+    updateSelectionText.transition()
+        .duration(1500)
+        .attr("x", function (d, i) {
+            return xScale(i);
+        })
+        .attr("y", function (d) {
+            return h - yScale(d[1]);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function (d) {
+            return yScale(d[1]);
+        });
+
+    // 'exit' bruges til at animere den søjle der er fjernet, og kun den
+    updateSelectionText.exit()
+        .transition()
+        .delay(200)
+        .duration(2000)
+        .attr("fill", "#00000000") // Animere til usynlighed
+        .attr("x", w + 200) // Flytter søjlen ud til højre
+        .remove(); // 'rect' slettes
+
+
+
+
+
     // Alle søjler animeres fint.
     // De har alle fået nye værdier fordi der er fjernet et punkt
     updateSelection.transition()
@@ -207,63 +270,6 @@ function updateSelectionRemoval() {
 
 
 }
-
-
-
-
-svg.selectAll("text.label") // Alt tekst med class 'label'
-      .data(dataset, function (d) {
-        return d[2]; // Vælge key på hvert punkt
-      })
-      .transition() // Lav en transition
-      .duration(2000) // Lad den køre i 2 sekunder
-
-      .attr("x", function (d, i) {
-        console.log(i * (w / dataset.length));
-        return i * (w / dataset.length) + 100;
-      }) // Søjlens højde plus en konstant
-          
-
-
-    
-      
-      
-    
-
-    svg.selectAll("text.label") // Alt tekst med class 'label'
-      .data(dataset)
-      .enter()
-      .append("text")
-      .text(function (d) { // Selve værdien bruges som label
-        return (d[1]);
-      }) // x svarer til søjlens x, plus en konstant
-      .attr("x", function (d, i) {
-        console.log(i * (w / dataset.length));
-        return i * (w / dataset.length) + 100;
-      }) // Søjlens højde plus en konstant
-      .attr("y", function (d) {
-        console.log((d));
-        return h - d[1];
-
-
-
-
-
-
-
-      })
-      .attr("class", "label") // Husk class på nye labels
-
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "11px")
-      .attr("id", "tooltip") 
-      .attr("fill", function (d) {
-        return (d[4]);
-      });
-
-
-
-
 
 
 

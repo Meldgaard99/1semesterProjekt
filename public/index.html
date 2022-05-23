@@ -12,7 +12,11 @@
 
 
     <div class="titel">
-        <h1>Spis <span> sæson</span></h1> <br>
+        <h1 id="sæson-titel">Spis 
+            <span> sæson</span>
+            
+        </h1> 
+        <br>
         <h2>Nedbring dit CO2 aftryk og vælg grøntsager i sæson</h2>
     </div>
 
@@ -22,19 +26,12 @@
     <div id="index2Content"></div>
     </section>
 
-    <section>
-        <div class="tester1"> <span data-tooltip="Kilde: Climatehub.com" data-tooltip-position="top"
-                style="color: white;">?</span> </div>
-
-    </section>
 
 
-    <section class="folden">
-
-
+    <section class="folden" id="overskrift2">
         <h2>Skal du bruge noget udenfor <span> sæson </span> ?</h2>
         <br>
-        Overvej grøntsagernes CO2-aftryk
+        Tryk på en grøntsag - Overvej grøntsagernes CO2-aftryk
         </br>
     </section>
 </body>
@@ -48,10 +45,16 @@
     <div class="split left">
 
         <section id="leftSide">
-            <span class="dot1"></span>
-            <span class="dot2"></span>
-            <h1> <span id="overskrift3">Importeret </span> vs <span id="overskrift4"> Dansk dyrket i sæson </span></h1>
-            
+
+
+            <h1>
+                <span id="dot1"></span>
+                <span id="overskrift3">Importeret </span>
+                vs
+                <span id="overskrift4"> Dansk dyrket i sæson </span>
+                <span id="dot2"></span>
+            </h1>
+
 
         </section>
     </div>
@@ -67,31 +70,10 @@
 
 <!--Til tekstbokse!-------------------------------------------------->
 
->
+
 
 
 <!-- Tekstbox -->
-
-<section class="textbox">
-    <div class="container">
-        <div class="row">
-            <h2>
-                Hvordan kan du gøre dine indkøb mere klimavenlig?
-            </h2>
-        </div>
-        <p>
-            Hvad er i sæson hvornår og kan mit/dit forbrug og købsvaner virkelig gøre en forskel i det store
-            klimaregnskab. Kan det betale sig at spise lokalt frem for udenlandsk? </p>
-        <div class="btn-box">
-            <a href="https://stoet.greenpeace.org/d/bliv-manedlig-donor-1?gclid=Cj0KCQjw1ZeUBhDyARIsAOzAqQLqMGNTVaUzNl20HtIyzaDOhKaNdLAOk602n6G2rwYOO_XnmvLPb_8aAuZKEALw_wcB"
-                class="btn-1">
-                Tryk her
-            </a>
-            <a href="" class="btn-2">
-                Læs mere
-            </a>
-
-</section>
 
 
 
@@ -105,25 +87,32 @@
 
 <!--Dette nedestående er beregnet til at lavet footeren, har kun sat en class på, men beholdt de forskellig i samme div-->
 <footer>
-
-    <div class="footer-content">
-        <h4>About us</h4>
-        <p>Nyd lige dette mesterværk! det eneste der mangler er en god scroll up button
-            <b>første</b> mand der opdager det her og siger 123 får en øl
-            #KP94
-        </p>
-
-        <!--Dette nedestående er beregnet til at lavet til socials(direkte links) eller andet gøjl -->
-
-
-        <!-- En yderligere kommentar som test -->
-
-        <ul class="socials">
-            <li><a href="Databehandling"></a></li>
-            <li><a href="Om"></a></li>
-        </ul>
+    <div class="container">
+        <div class="row">
+            <h2>
+                Hvordan kan du gøre dine indkøb mere klimavenlig?
+            </h2>
+        </div>
+        <p name="brødtekst">
+            Hvad er i sæson hvornår og kan mit/dit forbrug og købsvaner virkelig gøre en forskel i det store
+            klimaregnskab. Kan det betale sig at spise lokalt frem for udenlandsk? </p>
+        <section class="dataLinks">
+            <span data-tooltip="Kilde: Climatehub.com" data-tooltip-position="top"><a href="https://carboncloud.com"
+                    style="color: white;">Vores databehandling</a>
+            </span>
+        </section>
+        <div class="btn-box">
+            <a href="https://stoet.greenpeace.org/d/bliv-manedlig-donor-1?gclid=Cj0KCQjw1ZeUBhDyARIsAOzAqQLqMGNTVaUzNl20HtIyzaDOhKaNdLAOk602n6G2rwYOO_XnmvLPb_8aAuZKEALw_wcB"
+                class="btn-1">
+                Tryk her
+            </a>
+            <a href="" class="btn-2">
+                Læs mere
+            </a>
+        </div>
 
     </div>
+
 </footer>
 
 

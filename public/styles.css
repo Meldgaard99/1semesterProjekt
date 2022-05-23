@@ -5,7 +5,12 @@
     
   
 }
+
+
+
 [data-tooltip] {
+  margin-left: 85%;
+
   display: inline-block;
   position: relative;
   cursor: help;
@@ -16,7 +21,7 @@
   content: attr(data-tooltip);
   display: none;
   position: absolute;
-  background: #000;
+  background: rgb(192, 31, 31);
   color: #fff;
   padding: 4px 8px;
   font-size: 14px;
@@ -74,9 +79,8 @@
 
 
 
-
-
 .titel {
+ 
   text-align: center;
     font-size: 25px;
     font-weight: 100;
@@ -87,8 +91,11 @@
 
 }
 
+
+
 .split.left {
   color: rgb(35, 35, 35); 
+  font-size: 1.2vw;
 }
 
 
@@ -260,14 +267,12 @@ div.fruitcontainer {
 
 }
 
-.tester1{
+#dataLinks{
   margin-left:6%;
   background-color: blue;
   width: 0.9%;
   border-radius: 1.2rem;
 }
-
-
 
 
 
@@ -339,10 +344,10 @@ footer{
     text-align: center;
 }
 .footer-content h4{
-    font-size: 2.1rem;
-    font-weight: 500;
+    font-size: 1.5rem;
     text-transform: capitalize;
     line-height: 3rem;
+    margin-left: 75%;
 }
 .footer-content p{
     max-width: 500px;
@@ -428,16 +433,6 @@ footer{
     color: #363636;
   }
 
-  .nav-link {
-    padding: 10px 15px;
-    color: #060606;
-    text-align: center;
-    text-transform: uppercase;
-  }
-  
-  .nav-link {
-    color: #49922d;
-  }
   
   a,
   a:hover,
@@ -450,19 +445,15 @@ footer{
 color: #000
 ;}
 
-.dot1 {
+#dot1 {
   height: 15px;
   width: 15px;
   background-color: #a6b38a;
-  margin-left: 31%;
-  margin-bottom: -2.35%;
   display: inline-block;
   border-radius: 50%;
 }
 
-.dot2 {
-  margin-left: 35%;
-  margin-bottom: -2.35%;
+#dot2 {
   height: 15px;
   width: 15px;
   background-color: #5a8f57;

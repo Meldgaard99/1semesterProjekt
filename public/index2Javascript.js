@@ -39,8 +39,8 @@ function displayCurrentMonth(){
             labelTag.className = "textTilKnapper"
             document.getElementById(`${tmpName}${currentMonth}`).appendChild(labelTag);
         }
-
     })
+    document.getElementById(`${currentMonth}`).style.color='#5a8f57';
 }
 
 displayCurrentMonth()
