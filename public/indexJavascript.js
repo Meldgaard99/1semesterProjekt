@@ -40,7 +40,7 @@ d3.json("/api/frugt/getall", {
                     dataset.splice(index, 3)
                     updateSelectionRemoval()
                     document.getElementById(`${tmpName}`).style.backgroundColor = "#e8e6e0"
-                 
+
                 }
                 else {
                     d3.json(`/api/frugt/getco2indud`, {
@@ -52,7 +52,7 @@ d3.json("/api/frugt/getall", {
                                 dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])
                                 dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])
                                 dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
-                                
+
                             }
                         }
                         updateSelectionAdd();
@@ -112,12 +112,11 @@ const yScale = d3.scaleLinear()
 // Vælg elementet med id "klik_tilføj" og tilføj en handling		
 function updateSelectionAdd() {
     let fruitNamesLabel = [];
-    for (let index = 0;index<dataset.length;index++){
-        if (dataset[index][0].slice(-1) == "0"){
+    for (let index = 0; index < dataset.length; index++) {
+        if (dataset[index][0].slice(-1) == "0") {
             fruitNamesLabel.push(dataset[index])
         }
     }
-    console.log(`Test af fruit names : ${fruitNamesLabel}`)
     // Opdater scale-funktioner
     xScale.domain(d3.range(dataset.length));
 
@@ -149,13 +148,12 @@ function updateSelectionAdd() {
         .attr("x", function (d, i) {
             return xScale(i);
         })
-        .attr("y", function (d) {
-            return h - yScale(d[1]);
-        })
+        .attr("y", "650")
         .attr("width", 100)
         .attr("height", 50);
 
-
+    // Opdater scale-funktioner
+    xScale.domain(d3.range(dataset.length));
 
     // select 'rects' og tilføj ny data
     const updateSelection = svg.selectAll("rect")
@@ -199,8 +197,7 @@ function updateSelectionAdd() {
 }
 
 function updateSelectionRemoval() {
-    // Opdater scale-funktioner
-    xScale.domain(d3.range(dataset.length));
+
     yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig igen
 
     // select alle 'rects' og tilføj ny data
@@ -209,11 +206,11 @@ function updateSelectionRemoval() {
             return d[0];
         });
 
-        // select alle 'rects' og tilføj ny data
+    // select alle 'rects' og tilføj ny data
     const updateSelectionText = svg.selectAll("text")
-    .data(dataset, function (d) {
-        return d[0];
-    });
+        .data(dataset, function (d) {
+            return d[0];
+        });
 
     // Alle søjler animeres fint.
     // De har alle fået nye værdier fordi der er fjernet et punkt
