@@ -269,7 +269,29 @@ function updateSelectionRemoval() {
 }
 
 
+var width = 400, height = 1190;
 
+var data1 = [0.1, 2.21];
+
+var svg1 = d3.select("#leftside")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+var yscale = d3.scaleLinear()
+.domain([d3.min(data1), d3.max(data1)])
+        .range([height/2, 11]);
+
+
+var y_axis = d3.axisLeft()
+        .scale(yscale)
+        .ticks(3);
+
+    svg.append("g")
+       .attr("transform", "translate(50, 10)")
+       .call(y_axis)
+  
 
 function loadScript(url) {
     var head = document.getElementsByTagName('head')[0];
