@@ -1,0 +1,40 @@
+body {
+    background-color: #f0f0f0;
+  }
+  
+  
+  h1 {
+    color: darkgreen;
+    text-align: center;
+    font-size: 500%;
+  }
+  h2 {
+    color: darkgreen;
+    font-size: 300%;
+    width: 95%;
+    text-align: left;
+  }
+
+
+  p {
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1%;
+    width: 75%;
+    font-size: 125%;
+    display: inline-block;
+    line-height: 32px;
+  }
+  div {
+    background-color: rgba(0, 0, 0, 5%);
+    background-repeat: no-repeat;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 3%;
+  }
