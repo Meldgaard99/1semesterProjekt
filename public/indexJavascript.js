@@ -15,7 +15,6 @@ d3.json("/api/frugt/getall", {
 }).then(function (response) {
     const data = response.data; // Hent data ud af response
     allFruits = data
-    console.log(`Data from "getall": ${data}`);
 
     for (let index1 = 0; index1 < allFruits.length; index1++) {
         const style1 = `border:1px #e8e6e0;`;
@@ -27,34 +26,24 @@ d3.json("/api/frugt/getall", {
             .attr("class", "fruit-card-btn")
             .attr("background", `url([grøntsager-realistisk/${tmpName}.jpg])`)
             .on("click", function () {
-                console.log(`${tmpName} clicked`)
 
                 let foodFound = false;
                 let index = -1;
                 for (let q = 1; q < dataset.length; q += 3) {
-                    console.log(`Loop : ${dataset[q][0]}`)
                     if (dataset[q][0] == `${tmpName}0`) {
                         foodFound = true;
                         index = q;
                     }
                 }
 
-
                 if (foodFound == true) {
-                    console.log("Remove current data")
-                    console.log("")
                     dataset.splice(index, 3)
                     updateSelectionRemoval()
-                    console.log(`New dataset after removal ${dataset}`)
                 } else {
-
-                    console.log("Insert new data")
-                    console.log("")
                     d3.json(`/api/frugt/getco2indud`, {
                         method: "POST"
                     }).then(function (response) {
                         const data = response.data; // Hent data ud af response
-                        console.log(data)
                         for (let q = 0; q < data.length; q++) {
                             if (data[q].grøntsag == tmpName) {
                                 dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ind), "#a6b38a"])
@@ -63,11 +52,8 @@ d3.json("/api/frugt/getall", {
                             }
                         }
                         updateSelectionAdd();
-                        console.log(`New dataset after insert ${dataset}`)
                     })
                 }
-
-
             })
 
 
@@ -77,28 +63,14 @@ d3.json("/api/frugt/getall", {
         image1.height = 50
         document.getElementById(`${tmpName}`).appendChild(image1);
 
-
         const labelTag = document.createElement("a");
         labelTag.innerText = `${tmpName}`
         labelTag.className = "textTilKnapper"
         document.getElementById(`${tmpName}`).appendChild(labelTag);
 
     }
-    console.log(dataset)
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -109,14 +81,15 @@ d3.json("/api/frugt/getall", {
 // Lav et SVG element
 const svg = d3.select("#leftSide")
     .append("svg")
-    /*.attr("style", "border:1px solid black")*/
     .attr("id", "svgBarchart")
-    .attr("style", "border:1px solid black")
+//.attr("style", "border:1px solid black")
 
 // Width og height på selve søjlerne 
 const w = document.getElementById('svgBarchart').clientWidth;
 const h = document.getElementById('svgBarchart').clientHeight;
-const maxValue = 3;
+let maxValue = 2.5;
+
+
 
 // Scale-funktioner
 const xScale = d3.scaleBand()
@@ -132,6 +105,7 @@ const yScale = d3.scaleLinear()
 
 
 
+
 // Vælg elementet med id "klik_tilføj" og tilføj en handling		
 function updateSelectionAdd() {
 
@@ -139,10 +113,24 @@ function updateSelectionAdd() {
     xScale.domain(d3.range(dataset.length));
 
     // select 'rects' og tilføj ny data
+    const updateSelectionText = svg.selectAll("text")
+        .data(dataset, function (d) {
+            return d[0];
+        });
+
+    // select 'rects' og tilføj ny data
     const updateSelection = svg.selectAll("rect")
         .data(dataset, function (d) {
             return d[0];
         });
+
+    updateSelectionText.enter()
+        .append("text")
+        .attr("x", w)
+        .attr("y", function (d) {
+            return h - yScale(d[1]);
+        })
+        .attr("text", "Broccoli")
 
     // 'enter' bruges til at animere det nye data
     updateSelection.enter()
@@ -163,8 +151,8 @@ function updateSelectionAdd() {
         .merge(updateSelection)
         // Og animationen herunder vedrører alle punkter
         .transition()
-        .duration(1500)
-        .attr("name", function (d) {
+        .duration(750)
+        .attr("id", function (d) {
             return d[0]
         })
         .attr("x", function (d, i) {
@@ -173,11 +161,11 @@ function updateSelectionAdd() {
         .attr("y", function (d) {
             return h - yScale(d[1]);
         })
+
         .attr("width", xScale.bandwidth())
         .attr("height", function (d) {
             return yScale(d[1]);
         });
-
 }
 
 function updateSelectionRemoval() {
@@ -215,9 +203,6 @@ function updateSelectionRemoval() {
         .attr("x", w + 200) // Flytter søjlen ud til højre
         .remove(); // 'rect' slettes
 }
-
-
-
 
 
 

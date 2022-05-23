@@ -18,7 +18,6 @@ for (let month = 0; month < 12; month++) {
 
 
             const apiName = `/api/seasonalFruit/${allMonths[month]}`;
-            console.log(`apiName : ${apiName}`)
             d3.json(apiName, {
                 method: "GET"
             }).then(function (response) {
