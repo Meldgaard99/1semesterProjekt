@@ -35,7 +35,9 @@ button {
   margin: 0;
   padding: 0;
   font-family: Trebuchet MS, sans-serif;
-  width: 16%;
+  font-size: large;
+  width: 16.2%;
+  height: 80px;
   /*
    transition-duration: 0.4s;
    background-color: rgb(230, 220, 220);
@@ -45,19 +47,16 @@ button {
 }
 
 #overskift2 {
-  font-size: large;
-
-
-
+  font-size: xx-large;
 }
 
+
+
 button:hover {
-  background-color: rgb(111, 152, 98);
+background-color: rgb(111, 152, 98);
   /* moseGreen */
 
 }
-
-
 
 .fruit-card-btn {
 
@@ -103,25 +102,6 @@ button:hover {
 .fruit-card-btn:hover {
   color: #fff;
   box-shadow: inset 200px 0 0 0 #95a97b;
-}
-
-.dot1 {
-  margin-left: 35%;
-  height: 25px;
-  width: 25px;
-  background-color: #a6b38a;
-  
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.dot2 {
-  margin-left: 23%;
-  height: 25px;
-  width: 25px;
-  background-color: #5a8f57;
-  border-radius: 50%;
-  display: inline-block;
 }
 
 
