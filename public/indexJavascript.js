@@ -119,17 +119,7 @@ const yScale = d3.scaleLinear()
     .domain([0, maxValue])
     .range([0, svgHeight]);
 
-// gridlines in x axis function
-function make_x_gridlines() {
-    return d3.axisBottom(x)
-        .ticks(5)
-}
 
-// gridlines in y axis function
-function make_y_gridlines() {
-    return d3.axisLeft(y)
-        .ticks(5)
-}
 let fruitNamesLabel = [];
 function updateSelectionAdd() {
     let xPositionBarchart = 0;
@@ -338,25 +328,26 @@ function updateSelectionRemoval() {
 
 
 }
-
+/*laver en funktion til at lave y-aksen */
 function createYaxis() {
 
     const svgElement1 = d3.select("#svgBarchart")
 
 
     const yScale = d3.scaleLinear()
-        .domain([0, maxValue])
+        .domain([0, maxValue]) /* hvor meget maks værdien kan være på y-aksen */
         .range([svgHeight, 0]);
 
 
     var y_axis = d3.axisLeft()
         .scale(yScale)
-        .ticks(10);
+        .ticks(10); /* ticks vælger hvor mange punkter og tal der er på venstre side */
 
     svgElement1.append("g")
         .attr("transform", "translate(50, 10)")
         .call(y_axis);
 
+        /*tilføjer teksten til y-aksen*/
     svg.append("text")
         .attr("class", "y label")
         .attr("text-anchor", "end")
