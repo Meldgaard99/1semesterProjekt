@@ -39,7 +39,7 @@ d3.json("/api/frugt/getall", {
                 if (foodFound == true) {
                     for (fruit in fruitNamesLabel) {
                         if (fruitNamesLabel[fruit][0] == `${tmpName}0`) {
-                            fruitNamesLabel.splice(fruit,1)
+                            fruitNamesLabel.splice(fruit, 1)
                         }
                     }
                     dataset.splice(index, 3)
@@ -57,7 +57,8 @@ d3.json("/api/frugt/getall", {
                                 dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])
                                 dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])
                                 dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
-
+                                console.log(fruitNamesLabel)
+                                console.log(dataset)
                             }
 
 
@@ -98,7 +99,7 @@ d3.json("/api/frugt/getall", {
 const svg = d3.select("#leftSide")
     .append("svg")
     .attr("id", "svgBarchart")
-    .attr("style", "border:1px solid black")
+ 
 
 // Width og height på selve søjlerne 
 const svgWidth = document.getElementById('svgBarchart').clientWidth;
@@ -128,7 +129,7 @@ function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 }
-let fruitNamesLabel = [];		
+let fruitNamesLabel = [];
 function updateSelectionAdd() {
     let xPositionBarchart = 0;
     fruitNamesLabel = [];
@@ -151,6 +152,33 @@ function updateSelectionAdd() {
         updateSelection.enter()
             // Alt efter 'enter()' vedrører kun det nye datapunkt
             .append("rect")
+
+            .on("mouseover", function (event, d) {
+                // Læs søjlens x og y position ud fra 'this'
+                // Husk parseFloat for at lave text til number.
+                const xPosition = parseFloat(d3.select(this).attr("x"));
+                const yPosition = parseFloat(d3.select(this).attr("y")) - 50;
+
+
+                console.log(`d : ${d}`)
+
+                // Flyt tooltip div til rigtig position
+                d3.select("#tooltip")
+                    .style("left", xPosition + "px")
+                    .style("top", yPosition + "px")
+                    .select("#value")
+                    .text(d[1])
+
+
+                d3.select("#foodName")
+                    .text(d[0].slice(0,-1));
+                // Vis tooltip på ny position
+                d3.select("#tooltip").classed("hidden", false);
+            })
+            .on("mouseout", function () {
+                // Gem tooltip til næste gang
+                d3.select("#tooltip").classed("hidden", true);
+            })
             .attr("x", svgWidth)
             .attr("y", function (d) {
                 return svgHeight - yScale(d[1]);
@@ -170,9 +198,9 @@ function updateSelectionAdd() {
             .attr("id", function (d) {
                 return d[0]
             })
+            .attr("class", "barchartLines")
+
             .attr("x", function (d, i) {
-                if (d[0].slice(-1) == "1") {
-                }
                 return xScale(i);
             })
             .attr("y", function (d) {
@@ -181,7 +209,8 @@ function updateSelectionAdd() {
             .attr("width", xScale.bandwidth())
             .attr("height", function (d) {
                 return yScale(d[1]);
-            });
+            })
+
     }
     updateRect()
 
@@ -275,19 +304,6 @@ function updateSelectionRemoval() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // select alle 'rects' og tilføj ny data
     const updateSelection = svg.selectAll("rect")
         .data(dataset, function (d) {
@@ -374,4 +390,3 @@ function loadScript(url) {
     head.appendChild(script);
 }
 loadScript('/index2Javascript.js');
-

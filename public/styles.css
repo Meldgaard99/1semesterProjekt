@@ -8,79 +8,6 @@
 
 
 
-[data-tooltip] {
-  margin-left: 85%;
-
-  display: inline-block;
-  position: relative;
-  cursor: help;
-  padding: 4px;
-}
-
-/* Tooltip styling */
-[data-tooltip]:before {
-  content: attr(data-tooltip);
-  display: none;
-  position: absolute;
-  background: rgb(192, 31, 31);
-  color: #fff;
-  padding: 4px 8px;
-  font-size: 14px;
-  line-height: 1.4;
-  min-width: 100px;
-  text-align: center;
-  border-radius: 4px;
-}
-
-/* Dynamic horizontal centering */
-[data-tooltip-position="top"]:before {
-  left: 50%;
-  -ms-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-
-[data-tooltip-position="top"]:before {
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-
-/* Tooltip arrow styling/placement */
-[data-tooltip]:after {
-  content: '';
-  display: none;
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-}
-
-/* Dynamic horizontal centering for the tooltip */
-[data-tooltip-position="top"]:after,
-
-
-[data-tooltip-position="top"]:after {
-  bottom: 100%;
-  border-width: 6px 6px 0;
-  border-top-color: #000;
-}
-
-/* Show the tooltip when hovering */
-[data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
-  display: block;
-  z-index: 50;
-}
-
-
-
-.svgBarcahrtLabels{
-
-}
 
 
 
@@ -304,6 +231,13 @@ div.fruitcontainer {
 
 }
 
+.barchartLines:hover{
+
+  color: #49922d;
+  filter: invert(0.5)
+
+}
+
 
 .img-fill img {
   min-height: 100%;
@@ -438,14 +372,30 @@ a:focus {
  
   text-align: center;
 }
-
-
-.grid line {
-  stroke: rgb(168, 16, 16);
-  stroke-opacity: 0.7;
-  shape-rendering: crispEdges;
+rect:hover {
+  fill: orange;
 }
 
-.grid path {
-  stroke-width: 0;
+#tooltip {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 }
+
+#tooltip.hidden {
+  display: none;
+}
+
+#tooltip p {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+
