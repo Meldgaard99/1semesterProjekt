@@ -5,7 +5,7 @@
   left: 30%;
   width: 40%;
   height: 50%;
-  
+  margin-top: 20px;
 }
 
 .kalender {
@@ -20,6 +20,11 @@
   color: rgb(35, 35, 35); 
   font-size: small;
 
+}
+
+.kalenderKnapper{
+margin-top: 10px;
+margin-bottom: 10px;
 }
 
 /* Styling af knapper */

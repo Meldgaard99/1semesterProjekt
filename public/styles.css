@@ -90,7 +90,7 @@ position: absolute;
 
 /*------------------- Der bliver begyndt på første sektion eller første data viz---------------------------*/
 .splits {
-  height: 1000px;
+  height: 800px;
   position: static;
   z-index: +1;
   /*top: 0;*/
@@ -101,7 +101,7 @@ position: absolute;
 
 /* Split the screen in half */
 .split {
-  height: 1000px;
+  height: 800px;
   position: absolute;
   z-index: +1;
   /*top: 0;*/

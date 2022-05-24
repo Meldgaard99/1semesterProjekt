@@ -1,5 +1,6 @@
 // Selve datasættet
-let dataset = [["Default", parseFloat(0), "white"]];
+let dataset = [["Default", parseFloat(0), "white"], ["Tomater0", 0.32, "#a6b38a"], ["Tomater1", 0.8, "#5a8f57"], ["Tomater2", 0, "white"]];
+
 
 function loadHTML() {
     fetch('index2.html')
@@ -267,7 +268,7 @@ function updateSelectionAdd() {
 
 }
 
-
+updateSelectionAdd()
 
 function updateSelectionRemoval() {
 
