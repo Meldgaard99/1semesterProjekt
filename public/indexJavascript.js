@@ -1,8 +1,8 @@
-// Selve datasættet
+// Selve datasættet, der sørger for at der bliver vist en graf altid 
 let dataset = [["Default", parseFloat(0), "white"], ["Tomater0", 0.32, "#a6b38a"], ["Tomater1", 0.8, "#5a8f57"], ["Tomater2", 0, "white"]];
 
 
-function loadHTML() {
+function loadHTML() {// 
     fetch('index2.html')
         .then(response => response.text())
         .then(text => document.getElementById('index2Content').innerHTML = text);
@@ -17,7 +17,7 @@ d3.json("/api/frugt/getall", {
     const data = response.data; // Hent data ud af response
     allFruits = data
 
-    for (let index1 = 0; index1 < allFruits.length; index1++) {
+    for (let index1 = 0; index1 < allFruits.length; index1++) { //laver et loop der kør et array af dataen igennem 
         const style1 = `border:1px #e8e6e0;`;
         const tmpName = allFruits[index1].grøntsag;
         const button = d3.select("#rightSide")
@@ -55,9 +55,9 @@ d3.json("/api/frugt/getall", {
                         const data = response.data; // Hent data ud af response
                         for (let q = 0; q < data.length; q++) {
                             if (data[q].grøntsag == tmpName) {
-                                dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])
-                                dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])
-                                dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
+                                dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])//pusher udlandske data og putter en farve på
+                                dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])//pusher indlandske data og putter en farve på
+                                dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])//laver usynlig søjle til at skabe rum
                                 console.log(fruitNamesLabel)
                                 console.log(dataset)
                             }
@@ -72,19 +72,14 @@ d3.json("/api/frugt/getall", {
 
             })
 
-        d3.json(`/api/frugt/getco2indud`, {
-            method: "POST"
-        }).then(function (response) {
-            const data = response.data; // Hent data ud af response
-            tester = data
 
-        })
+     //laver billede til knapper
         const image1 = document.createElement("img");
         image1.src = `grøntsager-realistisk/${tmpName}.png`;
         image1.width = 50
         image1.height = 50
         document.getElementById(`${tmpName}`).appendChild(image1);
-
+          //laver labels til knapper 
         const labelTag = document.createElement("a");
         labelTag.innerText = `${tmpName}`
         labelTag.className = "textTilKnapper"
@@ -145,7 +140,7 @@ function updateSelectionAdd() {
             .append("rect")
 
             .on("mouseover", function (event, d) {
-                // Læs søjlens x og y position ud fra 'this'
+                // Læs søjlens x og y position ud fra '
                 // Husk parseFloat for at lave text til number.
                 const xPosition = parseFloat(d3.select(this).attr("x"));
                 const yPosition = parseFloat(d3.select(this).attr("y")) - 50;
@@ -153,16 +148,16 @@ function updateSelectionAdd() {
 
                 console.log(`d : ${d}`)
 
-                // Flyt tooltip div til rigtig position
+                // laver kassen ved hover på barchart
                 d3.select("#tooltip")
                     .style("left", xPosition + "px")
                     .style("top", yPosition + "px")
                     .select("#value")
-                    .text(d[1])
+                    .text(d[1])//viser det første i indekset i fra vores datasæt
 
 
-                d3.select("#foodName")
-                    .text(d[0].slice(0,-1));
+                d3.select("#foodName")//vælger det id fra indeks
+                    .text(d[0].slice(0,-1));//viser plads 0 fra indeks - med fjernelse af noget af ordet
                 // Vis tooltip på ny position
                 d3.select("#tooltip").classed("hidden", false);
             })
