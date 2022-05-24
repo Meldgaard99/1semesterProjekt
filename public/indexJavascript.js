@@ -37,6 +37,12 @@ d3.json("/api/frugt/getall", {
                 }
 
                 if (foodFound == true) {
+                    console.log(`${fruitNamesLabel}`)
+                    for (fruit in fruitNamesLabel) {
+                        if (fruitNamesLabel[fruit][0] == `${tmpName}0`) {
+                            fruitNamesLabel.splice(fruit, 1)
+                        }
+                    }
                     dataset.splice(index, 3)
                     updateSelectionRemoval()
                     document.getElementById(`${tmpName}`).style.backgroundColor = "#e8e6e0"
@@ -58,8 +64,8 @@ d3.json("/api/frugt/getall", {
 
                         }
                         updateSelectionAdd();
-                        console.log(dataset)
                         document.getElementById(`${tmpName}`).style.backgroundColor = "rgb(111, 152, 98)"
+
                     })
                 }
 
@@ -114,20 +120,23 @@ const yScale = d3.scaleLinear()
     .range([0, svgHeight]);
 
 // gridlines in x axis function
-function make_x_gridlines() {		
+function make_x_gridlines() {
     return d3.axisBottom(x)
         .ticks(5)
 }
 
 // gridlines in y axis function
-function make_y_gridlines() {		
+function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 }
-
+let fruitNamesLabel = [];
+let textCoordinates = [];
 // Vælg elementet med id "klik_tilføj" og tilføj en handling		
 function updateSelectionAdd() {
-    let fruitNamesLabel = [];
+    let xPositionBarchart = 0;
+    fruitNamesLabel = [];
+    textCoordinates = [];
     for (let index = 0; index < dataset.length; index++) {
         if (dataset[index][0].slice(-1) == "0") {
             fruitNamesLabel.push(dataset[index])
@@ -136,101 +145,116 @@ function updateSelectionAdd() {
     // Opdater scale-funktioner
     xScale.domain(d3.range(dataset.length));
 
-    // select 'texts' og tilføj ny data
-    const updateSelectionText = svg.selectAll("text")
-        .data(fruitNamesLabel, function (d) {
-            return d[0];
-        });
+    function updateRect() {
+        
+        // select 'rects' og tilføj ny data
+        const updateSelection = svg.selectAll("rect")
+            .data(dataset, function (d) {
+                return d[0];
+            });
+        // 'enter' bruges til at animere det nye data
+        updateSelection.enter()
+            // Alt efter 'enter()' vedrører kun det nye datapunkt
+            .append("rect")
+            .attr("x", svgWidth)
+            .attr("y", function (d) {
+                return svgHeight - yScale(d[1]);
+            })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function (d) {
+                return yScale(d[1]);
+            })
+            .attr("fill", function (d) {
+                return d[2];
+            })
+            // Her flettes det nye punkt sammen med de gamle punkter
+            .merge(updateSelection)
+            // Og animationen herunder vedrører alle punkter
+            .transition()
+            .duration(750)
+            .attr("id", function (d) {
+                return d[0]
+            })
+            .attr("x", function (d, i) {
+                if (d[0].slice(-1) == "1") {
+                    textCoordinates.push(xScale(i))
+                }
+                return xScale(i);
+            })
+            .attr("y", function (d) {
+                return svgHeight - yScale(d[1]);
+            })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function (d) {
+                return yScale(d[1]);
+            });
+            console.log(`textCoordinates : ${textCoordinates}`)
+    }
+    updateRect()
 
-    updateSelectionText.enter()
-        // Alt efter 'enter()' vedrører kun det nye datapunkt
-        .append("text")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", 100)
-        .attr("height", 50)
-        .attr("fill", "black")
-        .text(function (d) { return d[0].slice(0, -1); })
-        // Her flettes det nye punkt sammen med de gamle punkter
-        .merge(updateSelectionText)
-        // Og animationen herunder vedrører alle punkter
-        .transition()
-        .duration(750)
-        .attr("id", function (d) {
-            return d[0]
-        })
-        .attr("x", function (d, i) {
-            let elementsInFruits = fruitNamesLabel.length
-            console.log(`Elementer i fruitNamesLabel: ${elementsInFruits}`)
-            console.log(`svgWidth: ${svgWidth}`) 
-            const xPlacementOnAxis = svgWidth / (elementsInFruits + 1);
-            console.log(`xPlacementOnAxis : ${xPlacementOnAxis}`);
-            console.log(`final placement : ${xPlacementOnAxis * (i+1)}`);
-            return xPlacementOnAxis * (i+1);
-        })
-        .attr("y", "640")
-        .attr("text-anchor","end")
-        .attr("height", 50)
-        .attr("font-size", "8");
-
-    // select 'rects' og tilføj ny data
-    const updateSelection = svg.selectAll("rect")
-        .data(dataset, function (d) {
-            return d[0];
-        });
-    // 'enter' bruges til at animere det nye data
 
 
-    
-    updateSelection.enter()
-        // Alt efter 'enter()' vedrører kun det nye datapunkt
-        .append("rect")
-        .attr("x", svgWidth)
-        .attr("y", function (d) {
-            return svgHeight - yScale(d[1]);
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function (d) {
-            return yScale(d[1]);
-        })
-        .attr("fill", function (d) {
-            return d[2];
-        })
-        // Her flettes det nye punkt sammen med de gamle punkter
-        .merge(updateSelection)
-        // Og animationen herunder vedrører alle punkter
-        .transition()
-        .duration(750)
-        .attr("class", "barchartText")
-        .attr("id", function (d) {
-            return d[0]
-        })
-        .attr("x", function (d, i) {
-            return xScale(i);
-        })
-        .attr("y", function (d) {
-            return svgHeight - yScale(d[1]);
-        })
 
-        .attr("width", xScale.bandwidth())
-        .attr("height", function (d) {
-            return yScale(d[1]);
-        });
+    function updateText() {
+        // select 'texts' og tilføj ny data
+        const updateSelectionText = svg.selectAll(".svgBarcahrtLabels")
+            .data(fruitNamesLabel, function (d) {
+                return d[0];
+            });
+
+        updateSelectionText.enter()
+            // Alt efter 'enter()' vedrører kun det nye datapunkt
+            .append("text")
+            .attr("class", "svgBarcahrtLabels")
+            .attr("x", svgWidth)
+            .attr("y", svgHeight)
+            .attr("fill", "black")
+            .text(function (d) { return d[0].slice(0, -1); })
+            // Her flettes det nye punkt sammen med de gamle punkter
+            .merge(updateSelectionText)
+            // Og animationen herunder vedrører alle punkter
+            .transition()
+            .duration(750)
+            .attr("id", function (d) {
+                return d[0];
+            })
+
+            .attr("x", function (d, i) {
+                return textCoordinates[i]
+            })
+
+
+            .attr("y", "640")
+            .attr("text-anchor", "end")
+            .attr("class", "svgBarcahrtLabels")
+            .attr("font-size", function () {
+                return 24 - fruitNamesLabel.length
+            });
+    }
+    updateText()
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
 
 function updateSelectionRemoval() {
 
-    yScale.domain([0, maxValue]);	// Strengt taget ikke nødvendig igen
+    // Opdater scale-funktioner
+    xScale.domain(d3.range(dataset.length));
 
-    // select alle 'rects' og tilføj ny data
-    const updateSelection = svg.selectAll("rect")
-        .data(dataset, function (d) {
-            return d[0];
-        });
-
-    // select alle 'rects' og tilføj ny data
-    const updateSelectionText = svg.selectAll("text")
-        .data(dataset, function (d) {
+    // select alle 'labels' og tilføj ny data
+    const updateSelectionText = svg.selectAll(".svgBarcahrtLabels")
+        .data(fruitNamesLabel, function (d) {
             return d[0];
         });
 
@@ -239,21 +263,15 @@ function updateSelectionRemoval() {
     updateSelectionText.transition()
         .duration(1500)
         .attr("x", function (d, i) {
-            return xScale(i);
+            return textCoordinates[i]
         })
-        .attr("y", function (d) {
-            return svgHeight - yScale(d[1]);
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("height", function (d) {
-            return yScale(d[1]);
-        });
+        .attr("y", "640")
 
     // 'exit' bruges til at animere den søjle der er fjernet, og kun den
     updateSelectionText.exit()
         .transition()
         .delay(200)
-        .duration(2000)
+        .duration(1000)
         .attr("fill", "#00000000") // Animere til usynlighed
         .attr("x", svgWidth + 200) // Flytter søjlen ud til højre
         .remove(); // 'rect' slettes
@@ -261,6 +279,24 @@ function updateSelectionRemoval() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // select alle 'rects' og tilføj ny data
+    const updateSelection = svg.selectAll("rect")
+        .data(dataset, function (d) {
+            return d[0];
+        });
 
     // Alle søjler animeres fint.
     // De har alle fået nye værdier fordi der er fjernet et punkt
@@ -292,32 +328,50 @@ function updateSelectionRemoval() {
 
 function createYaxis() {
 
-
-    var width = 400, height = 1190;
+    const svgElement1 = d3.select("#svgBarchart")
 
     var data1 = [0.1, 2.21];
 
-    var svg1 = d3.select("#leftside")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
     const yScale = d3.scaleLinear()
         .domain([0, maxValue])
-        .range([svgHeight,0]);
+        .range([svgHeight, 0]);
 
 
     var y_axis = d3.axisLeft()
         .scale(yScale)
         .ticks(10);
 
-    svg.append("g")
+    svgElement1.append("g")
         .attr("transform", "translate(50, 10)")
-        .call(y_axis)
+        .call(y_axis);
+
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("dy", ".80em")
+        .attr("transform", "rotate(-90)")
+        .text("Co2e/kg");
 
 
 }
 createYaxis();
+
+
+
+d3.select('#remove-btn')
+    .on("click", function () {
+        for (let i = 1; i < dataset.length; i += 3) {
+            document.getElementById(`${dataset[i][0].slice(0, -1)}`).style.backgroundColor = "#e8e6e0"
+        }
+        dataset = [];
+
+        updateSelectionRemoval()
+
+
+
+
+
+    });
 
 
 
