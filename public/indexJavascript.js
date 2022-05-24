@@ -37,10 +37,9 @@ d3.json("/api/frugt/getall", {
                 }
 
                 if (foodFound == true) {
-                    console.log(`${fruitNamesLabel}`)
                     for (fruit in fruitNamesLabel) {
                         if (fruitNamesLabel[fruit][0] == `${tmpName}0`) {
-                            fruitNamesLabel.splice(fruit, 1)
+                            fruitNamesLabel.splice(fruit,1)
                         }
                     }
                     dataset.splice(index, 3)
@@ -108,7 +107,6 @@ let maxValue = 2.2;
 //maxValue = d3.maxValue()
 
 
-
 // Scale-funktioner
 const xScale = d3.scaleBand()
     .domain(d3.range(dataset.length))
@@ -130,13 +128,10 @@ function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 }
-let fruitNamesLabel = [];
-let textCoordinates = [];
-// Vælg elementet med id "klik_tilføj" og tilføj en handling		
+let fruitNamesLabel = [];		
 function updateSelectionAdd() {
     let xPositionBarchart = 0;
     fruitNamesLabel = [];
-    textCoordinates = [];
     for (let index = 0; index < dataset.length; index++) {
         if (dataset[index][0].slice(-1) == "0") {
             fruitNamesLabel.push(dataset[index])
@@ -146,7 +141,7 @@ function updateSelectionAdd() {
     xScale.domain(d3.range(dataset.length));
 
     function updateRect() {
-        
+
         // select 'rects' og tilføj ny data
         const updateSelection = svg.selectAll("rect")
             .data(dataset, function (d) {
@@ -177,7 +172,6 @@ function updateSelectionAdd() {
             })
             .attr("x", function (d, i) {
                 if (d[0].slice(-1) == "1") {
-                    textCoordinates.push(xScale(i))
                 }
                 return xScale(i);
             })
@@ -188,7 +182,6 @@ function updateSelectionAdd() {
             .attr("height", function (d) {
                 return yScale(d[1]);
             });
-            console.log(`textCoordinates : ${textCoordinates}`)
     }
     updateRect()
 
@@ -220,7 +213,7 @@ function updateSelectionAdd() {
             })
 
             .attr("x", function (d, i) {
-                return textCoordinates[i]
+                return svgWidth / (fruitNamesLabel.length + 1) * (i + 1) + 35
             })
 
 
@@ -263,9 +256,12 @@ function updateSelectionRemoval() {
     updateSelectionText.transition()
         .duration(1500)
         .attr("x", function (d, i) {
-            return textCoordinates[i]
+            return svgWidth / (fruitNamesLabel.length + 1) * (i + 1) + 35
         })
         .attr("y", "640")
+        .attr("font-size", function () {
+            return 24 - fruitNamesLabel.length
+        });
 
     // 'exit' bruges til at animere den søjle der er fjernet, og kun den
     updateSelectionText.exit()
@@ -330,7 +326,6 @@ function createYaxis() {
 
     const svgElement1 = d3.select("#svgBarchart")
 
-    var data1 = [0.1, 2.21];
 
     const yScale = d3.scaleLinear()
         .domain([0, maxValue])
@@ -363,14 +358,9 @@ d3.select('#remove-btn')
         for (let i = 1; i < dataset.length; i += 3) {
             document.getElementById(`${dataset[i][0].slice(0, -1)}`).style.backgroundColor = "#e8e6e0"
         }
-        dataset = [];
-
+        dataset = [["Default", parseFloat(0), "white"]];
+        fruitNamesLabel = [];
         updateSelectionRemoval()
-
-
-
-
-
     });
 
 

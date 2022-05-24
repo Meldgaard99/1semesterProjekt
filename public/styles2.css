@@ -121,9 +121,10 @@ background-color: rgb(111, 152, 98);
 .modal-content {
   background-color: white;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 10%;
+  padding: 5%;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  height:fit-content
 }
 
 /* The Close Button */
