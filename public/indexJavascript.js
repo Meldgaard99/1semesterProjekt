@@ -54,15 +54,24 @@ d3.json("/api/frugt/getall", {
                                 dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])
 
                             }
+
+
                         }
                         updateSelectionAdd();
                         console.log(dataset)
                         document.getElementById(`${tmpName}`).style.backgroundColor = "rgb(111, 152, 98)"
                     })
                 }
+
             })
 
+        d3.json(`/api/frugt/getco2indud`, {
+            method: "POST"
+        }).then(function (response) {
+            const data = response.data; // Hent data ud af response
+            tester = data
 
+        })
         const image1 = document.createElement("img");
         image1.src = `grøntsager-realistisk/${tmpName}.png`;
         image1.width = 50
@@ -84,26 +93,37 @@ d3.json("/api/frugt/getall", {
 const svg = d3.select("#leftSide")
     .append("svg")
     .attr("id", "svgBarchart")
-//.attr("style", "border:1px solid black")
+    .attr("style", "border:1px solid black")
 
 // Width og height på selve søjlerne 
-const w = document.getElementById('svgBarchart').clientWidth;
-const h = document.getElementById('svgBarchart').clientHeight - 50;
+const svgWidth = document.getElementById('svgBarchart').clientWidth;
+const svgHeight = document.getElementById('svgBarchart').clientHeight - 40;
 let maxValue = 2.2;
+//maxValue = d3.maxValue()
 
 
 
 // Scale-funktioner
 const xScale = d3.scaleBand()
     .domain(d3.range(dataset.length))
-    .rangeRound([0, w])
+    .rangeRound([35, svgWidth])
     .paddingInner(0.05);
 
 const yScale = d3.scaleLinear()
     .domain([0, maxValue])
-    .range([0, h]);
+    .range([0, svgHeight]);
 
+// gridlines in x axis function
+function make_x_gridlines() {		
+    return d3.axisBottom(x)
+        .ticks(5)
+}
 
+// gridlines in y axis function
+function make_y_gridlines() {		
+    return d3.axisLeft(y)
+        .ticks(5)
+}
 
 // Vælg elementet med id "klik_tilføj" og tilføj en handling		
 function updateSelectionAdd() {
@@ -125,14 +145,12 @@ function updateSelectionAdd() {
     updateSelectionText.enter()
         // Alt efter 'enter()' vedrører kun det nye datapunkt
         .append("text")
-        .attr("x", w)
-        .attr("y", function (d) {
-            return h - yScale(d[1] - 10);
-        })
+        .attr("x", 0)
+        .attr("y", 0)
         .attr("width", 100)
         .attr("height", 50)
-        .attr("fill", "Red")
-        .text(function (d) { return d[0]; })
+        .attr("fill", "black")
+        .text(function (d) { return d[0].slice(0, -1); })
         // Her flettes det nye punkt sammen med de gamle punkter
         .merge(updateSelectionText)
         // Og animationen herunder vedrører alle punkter
@@ -142,14 +160,18 @@ function updateSelectionAdd() {
             return d[0]
         })
         .attr("x", function (d, i) {
-            return xScale(i);
+            let elementsInFruits = fruitNamesLabel.length
+            console.log(`Elementer i fruitNamesLabel: ${elementsInFruits}`)
+            console.log(`svgWidth: ${svgWidth}`) 
+            const xPlacementOnAxis = svgWidth / (elementsInFruits + 1);
+            console.log(`xPlacementOnAxis : ${xPlacementOnAxis}`);
+            console.log(`final placement : ${xPlacementOnAxis * (i+1)}`);
+            return xPlacementOnAxis * (i+1);
         })
-        .attr("y", "650")
-        .attr("width", 100)
-        .attr("height", 50);
-
-    // Opdater scale-funktioner
-    xScale.domain(d3.range(dataset.length));
+        .attr("y", "640")
+        .attr("text-anchor","end")
+        .attr("height", 50)
+        .attr("font-size", "8");
 
     // select 'rects' og tilføj ny data
     const updateSelection = svg.selectAll("rect")
@@ -157,12 +179,15 @@ function updateSelectionAdd() {
             return d[0];
         });
     // 'enter' bruges til at animere det nye data
+
+
+    
     updateSelection.enter()
         // Alt efter 'enter()' vedrører kun det nye datapunkt
         .append("rect")
-        .attr("x", w)
+        .attr("x", svgWidth)
         .attr("y", function (d) {
-            return h - yScale(d[1]);
+            return svgHeight - yScale(d[1]);
         })
         .attr("width", xScale.bandwidth())
         .attr("height", function (d) {
@@ -184,7 +209,7 @@ function updateSelectionAdd() {
             return xScale(i);
         })
         .attr("y", function (d) {
-            return h - yScale(d[1]);
+            return svgHeight - yScale(d[1]);
         })
 
         .attr("width", xScale.bandwidth())
@@ -217,7 +242,7 @@ function updateSelectionRemoval() {
             return xScale(i);
         })
         .attr("y", function (d) {
-            return h - yScale(d[1]);
+            return svgHeight - yScale(d[1]);
         })
         .attr("width", xScale.bandwidth())
         .attr("height", function (d) {
@@ -230,7 +255,7 @@ function updateSelectionRemoval() {
         .delay(200)
         .duration(2000)
         .attr("fill", "#00000000") // Animere til usynlighed
-        .attr("x", w + 200) // Flytter søjlen ud til højre
+        .attr("x", svgWidth + 200) // Flytter søjlen ud til højre
         .remove(); // 'rect' slettes
 
 
@@ -245,7 +270,7 @@ function updateSelectionRemoval() {
             return xScale(i);
         })
         .attr("y", function (d) {
-            return h - yScale(d[1]);
+            return svgHeight - yScale(d[1]);
         })
         .attr("width", xScale.bandwidth())
         .attr("height", function (d) {
@@ -258,40 +283,44 @@ function updateSelectionRemoval() {
         .delay(200)
         .duration(2000)
         .attr("fill", "#00000000") // Animere til usynlighed
-        .attr("x", w + 200) // Flytter søjlen ud til højre
+        .attr("x", svgWidth + 200) // Flytter søjlen ud til højre
         .remove(); // 'rect' slettes
 
 
 
 }
 
-function createYaxis(){
+function createYaxis() {
+
+
     var width = 400, height = 1190;
 
     var data1 = [0.1, 2.21];
-    
+
     var svg1 = d3.select("#leftside")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
-    
-    
-    var yscale = d3.scaleLinear()
-    .domain([d3.min(data1), d3.max(data1)])
-            .range([height/2, 11]);
-    
-    
-    var y_axis = d3.axisLeft()
-            .scale(yscale)
-            .ticks(3);
-    
-        svg.append("g")
-           .attr("transform", "translate(50, 10)")
-           .call(y_axis)
-}
-createYaxis()
 
-  
+    const yScale = d3.scaleLinear()
+        .domain([0, maxValue])
+        .range([svgHeight,0]);
+
+
+    var y_axis = d3.axisLeft()
+        .scale(yScale)
+        .ticks(10);
+
+    svg.append("g")
+        .attr("transform", "translate(50, 10)")
+        .call(y_axis)
+
+
+}
+createYaxis();
+
+
+
 
 function loadScript(url) {
     var head = document.getElementsByTagName('head')[0];
