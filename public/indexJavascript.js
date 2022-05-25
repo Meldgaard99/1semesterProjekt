@@ -1,7 +1,6 @@
 // Selve datasættet, der sørger for at der bliver vist en graf altid 
 let dataset = [["Default", parseFloat(0), "white"], ["Tomater0", 0.32, "#a6b38a"], ["Tomater1", 0.8, "#5a8f57"], ["Tomater2", 0, "white"]];
 
-
 function loadHTML() {// 
     fetch('index2.html')
         .then(response => response.text())
@@ -24,7 +23,7 @@ d3.json("/api/frugt/getall", {
             .append("button")
             .attr("style", style1)
             .attr("id", tmpName)
-            .attr("class", "fruit-card-btn")
+            .attr("class", "fruit-card-btn_Barchart")
             .attr("background", `url([grøntsager-realistisk/${tmpName}.jpg])`)
             .on("click", function () {
 
@@ -66,6 +65,7 @@ d3.json("/api/frugt/getall", {
                         }
                         updateSelectionAdd();
                         document.getElementById(`${tmpName}`).style.backgroundColor = "rgb(111, 152, 98)"
+           
 
                     })
                 }
@@ -76,17 +76,18 @@ d3.json("/api/frugt/getall", {
      //laver billede til knapper
         const image1 = document.createElement("img");
         image1.src = `grøntsager-realistisk/${tmpName}.png`;
-        image1.width = 50
-        image1.height = 50
+        image1.width = 0
+        image1.height = 0
+        image1.className = "fruitImagesButtons"
         document.getElementById(`${tmpName}`).appendChild(image1);
           //laver labels til knapper 
-        const labelTag = document.createElement("a");
-        labelTag.innerText = `${tmpName}`
+        const labelTag = document.createElement("p");
+        labelTag.textContent = `${tmpName}`
         labelTag.className = "textTilKnapper"
         document.getElementById(`${tmpName}`).appendChild(labelTag);
 
     }
-
+    document.getElementById(`Tomater`).style.backgroundColor = "rgb(111, 152, 98)"
 })
 
 

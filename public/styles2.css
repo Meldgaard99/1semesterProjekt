@@ -15,17 +15,14 @@
   position: static;
 }
 
-.textTilKnapper{
-  position: centered;
-  color: rgb(35, 35, 35); 
-  font-size: small;
-
-}
-
 .kalenderKnapper{
 margin-top: 10px;
 margin-bottom: 10px;
 }
+
+.kalenderKnapper:hover{
+  color: rgb(111, 152, 98);
+  }
 
 /* Styling af knapper */
 button {
@@ -44,14 +41,12 @@ button {
 */
 }
 
-button:hover {
-background-color: rgb(111, 152, 98);
-  /* moseGreen */
-
-}
-
-.fruit-card-btn {
-
+.fruit-card-btn_Calender:hover {
+  background-color: rgb(111, 152, 98);
+     /*moseGreen */
+  }
+  
+.fruit-card-btn_Calender {
   background-color: #e8e6e0;
   border: 4 solid #e2e8f0;
   border-radius: 1.5rem;
@@ -71,12 +66,8 @@ background-color: rgb(111, 152, 98);
   margin-right: 5%;
   margin-left: 30px;
 
-
   transition: all .1s cubic-bezier(.4, 0, .2, 1);
-
   box-shadow: inset 0 0 0 0  rgb(111, 152, 98);
-
-
   transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
 
   color: rgb(150, 150, 150);
@@ -88,7 +79,6 @@ background-color: rgb(111, 152, 98);
   height: 80%;
   width: 90%;
   display: block;
-
 }
 
 .fruit-card-btn:hover {
