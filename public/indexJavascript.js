@@ -1,6 +1,8 @@
-// Selve datasættet, der sørger for at der bliver vist en graf altid 
+// Selve datasættet, der sørger for at der bliver vist to søjler ved sidens indlæsning 
 let dataset = [["Default", parseFloat(0), "white"], ["Tomater0", 0.32, "#a6b38a"], ["Tomater1", 0.8, "#5a8f57"], ["Tomater2", 0, "white"]];
 
+
+//Denne funktion henter html data fra index2 og præsentere indholdet i getElementById('index2Content')
 function loadHTML() {// 
     fetch('index2.html')
         .then(response => response.text())
@@ -9,71 +11,70 @@ function loadHTML() {//
 loadHTML();
 
 let allFruits = [{}];
-
+//Når siden indlæses, køres dette api kald med det samme, uden noget form for user input
 d3.json("/api/frugt/getall", {
     method: "POST"
 }).then(function (response) {
-    const data = response.data; // Hent data ud af response
-    allFruits = data
+    allFruits = response.data; // Hent data ud af response
 
-    for (let index1 = 0; index1 < allFruits.length; index1++) { //laver et loop der kør et array af dataen igennem 
+    for (let index1 = 0; index1 < allFruits.length; index1++) { //laver et loop der kør et array af dataen igennem vi har fået fra /api/frugt/getall i main.js
         const style1 = `border:1px #e8e6e0;`;
-        const tmpName = allFruits[index1].grøntsag;
+        const tmpName = allFruits[index1].grøntsag; //udelukkende lavet for at ikke skulle skirve "allFruits[index1].grøntsag" men blot "tmpName" hver gang navnet skulle bruges
+
+        //Generer hver knap og tilføjer den til #rightSide
         const button = d3.select("#rightSide")
             .append("button")
             .attr("style", style1)
-            .attr("id", tmpName)
-            .attr("class", "fruit-card-btn_Barchart")
-            .attr("background", `url([grøntsager-realistisk/${tmpName}.jpg])`)
+            .attr("id", tmpName) //giver knappen et id med dens eget navn, for at vi kan specifikt udvælge knapperne enkeltvis senere 
+            .attr("class", "fruit-card-btn_Barchart") //gives alle den samme 'class' for at vi kan style dem ens i css
             .on("click", function () {
 
+                //Tilføjelse af funktionalitet ved klik på knappen
                 let foodFound = false;
                 let index = -1;
+                //Løber datasættet igennem for at se om maden allerede er tilføjet til datasættet og visualiseret
                 for (let q = 1; q < dataset.length; q += 3) {
                     if (dataset[q][0] == `${tmpName}0`) {
-                        foodFound = true;
-                        index = q;
+                        foodFound = true; //Hvis maden bliver fundet sættes variablen til sand
+                        index = q; //og 'index' variablen bliver sat til den omgang som loopet var nået til
                     }
                 }
 
-                if (foodFound == true) {
-                    for (fruit in fruitNamesLabel) {
-                        if (fruitNamesLabel[fruit][0] == `${tmpName}0`) {
-                            fruitNamesLabel.splice(fruit, 1)
+                if (foodFound == true) { //maden er fundet og 
+                    
+                    //Fjerner den madvare der ikke længere skal visualiseres samt tekst
+                    dataset.splice(index, 3) 
+                    for (fruitIndex in fruitNamesLabel) {
+                        if (fruitNamesLabel[fruitIndex][0] == `${tmpName}0`) {
+                            fruitNamesLabel.splice(fruitIndex, 1) //Fjerner tekst
                         }
                     }
-                    dataset.splice(index, 3)
                     updateSelectionRemoval()
-                    document.getElementById(`${tmpName}`).style.backgroundColor = "#e8e6e0"
+                    document.getElementById(`${tmpName}`).style.backgroundColor = "#e8e6e0" //Sætter farven på knappen tilbage til standard
 
                 }
-                else {
+                else { //Hvis madvareren ikke bliver fundet ...
                     d3.json(`/api/frugt/getco2indud`, {
                         method: "POST"
                     }).then(function (response) {
                         const data = response.data; // Hent data ud af response
-                        for (let q = 0; q < data.length; q++) {
+                        for (let q = 0; q < data.length; q++) { //Løber arrayet igennem indtil det matcher med knappens navn 
                             if (data[q].grøntsag == tmpName) {
-                                dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])//pusher udlandske data og putter en farve på
-                                dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])//pusher indlandske data og putter en farve på
+                                dataset.push([`${data[q].grøntsag}0`, parseFloat(data[q].ud), "#a6b38a"])//pusher navn(id), udlandske data og putter en farve på
+                                dataset.push([`${data[q].grøntsag}1`, parseFloat(data[q].ind), "#5a8f57"])//pusher navn(id), indlandske data og putter en farve på
                                 dataset.push([`${data[q].grøntsag}2`, parseFloat(0), "white"])//laver usynlig søjle til at skabe rum
-                                console.log(fruitNamesLabel)
-                                console.log(dataset)
                             }
-
 
                         }
                         updateSelectionAdd();
-                        document.getElementById(`${tmpName}`).style.backgroundColor = "rgb(111, 152, 98)"
-           
-
+                        document.getElementById(`${tmpName}`).style.backgroundColor = "rgb(111, 152, 98)" //Sætter knappen til grøn ish
                     })
                 }
 
             })
 
 
-     //laver billede til knapper
+        //laver billede til knapper
         const image1 = document.createElement("img");
         image1.src = `grøntsager-realistisk/${tmpName}.png`;
         image1.width = 0
@@ -102,7 +103,6 @@ const svg = d3.select("#leftSide")
 const svgWidth = document.getElementById('svgBarchart').clientWidth;
 const svgHeight = document.getElementById('svgBarchart').clientHeight - 40;
 let maxValue = 2.2;
-//maxValue = d3.maxValue()
 
 
 // Scale-funktioner
@@ -369,7 +369,7 @@ d3.select('#remove-btn')
 
 
 
-
+//Indlæser scriptet der skal køres på index2.html
 function loadScript(url) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');

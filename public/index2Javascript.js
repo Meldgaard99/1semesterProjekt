@@ -3,7 +3,8 @@ const allMonths = ["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli",
 const d = new Date();
 let currentMonth = allMonths[d.getMonth()];
 
-function displayCurrentMonth(){
+
+function displayCurrentMonthOfData(){
     d3.json(`/api/seasonalFruit/${currentMonth}`, {
         method: "GET"
     }).then(function (response) {
@@ -21,7 +22,6 @@ function displayCurrentMonth(){
                 .attr("class", "fruit-card-btn calenderButtons")
                 .attr("background-image", `url("/grøntsager-realistisk/${tmpName}.png")`)
                 .on("click", function () {
-                    console.log(`${tmpName} clicked`)
                     modal.style.display = "block";
                     pLabel.textContent = `${seasonal[index1].Kommentar}`;
                     
@@ -43,23 +43,20 @@ function displayCurrentMonth(){
     document.getElementById(`${currentMonth}`).style.color='#5a8f57';
 }
 
-displayCurrentMonth()
+displayCurrentMonthOfData()
 
 
 
-
+//Løber alle månederne igennem og giver dem deres klikke funktionalitet
 for (let month = 0; month < 12; month++) {
     
     d3.select(`#${allMonths[month]}`)
         .on("click", function () {
-            seasonal = [{}];
-            console.log(`${allMonths[month]} button clicked`);
-            d3.selectAll(".calenderButtons").remove();
+            d3.selectAll(".calenderButtons").remove(); //Fjerner alt tidligere visualisering
 
             //Ændre knappen der trykkes på til grøn
             for (let q = 0; q < 12; q++) {
                 document.getElementById(`${allMonths[q]}`).style.color='black';
-                //document.getElementById(`${allMonths[q]}`).style.color = 'black';
             }
             document.getElementById(`${allMonths[month]}`).style.color='#5a8f57';
             //
@@ -70,9 +67,9 @@ for (let month = 0; month < 12; month++) {
             d3.json(`/api/seasonalFruit/${allMonths[month]}`, {
                 method: "GET"
             }).then(function (response) {
-                const data = response.data; // Hent data ud af response
-                seasonal = data
+                seasonal = response.data; // Hent data ud af response
 
+                //Gennemgår hele udtrækket fra databasen og tilføjer knapperne en efter en
                 for (let index1 = 0; index1 < seasonal.length; index1++) {
                     const style1 = `border:1px #e8e6e0;`;
                     const tmpName = seasonal[index1].Groentsag;
@@ -108,8 +105,6 @@ for (let month = 0; month < 12; month++) {
 
         });
 }
-
-
 
 
 
